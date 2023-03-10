@@ -28,9 +28,9 @@ export const Banner = () => {
         <a class="btn" rel="noopener noreferrer" target="_blank" href="/calender.ics">
           calender
         </a>
-        <a class="btn" rel="noopener noreferrer" target="_blank" href="/rss.xml">
+        {/* <a class="btn" rel="noopener noreferrer" target="_blank" href="/rss.xml">
           rss
-        </a>
+        </a> */}
       </div>
     </div>
   )

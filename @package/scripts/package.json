@@ -1,0 +1,42 @@
+{
+  "name": "@package/scripts",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "Private",
+  "author": "Dan Beaven <dm.beaven@gmail.com>",
+  "bin": {
+    "script:artifact": "lib/artifact.js",
+    "script:collect": "lib/collect.js",
+    "script:tweet": "lib/tweet.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "yarn build --watch",
+    "test": "echo 'no tests'",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "@types/node": "^14.0.24",
+    "@types/twit": "^2.2.31",
+    "esbuild": "^0.17.8",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.3.0",
+    "typescript": "5.0.0-beta"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "@package/scrapers": "workspace:^",
+    "cmd-ts": "^0.12.1",
+    "dayjs": "^1.11.7",
+    "listr2": "^5.0.7",
+    "twit": "^2.2.11",
+    "zod": "^3.20.6"
+  }
+}

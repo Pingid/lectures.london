@@ -1,0 +1,27 @@
+{
+  "short_name": "Lectures London",
+  "name": "Lectures London",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "96x96 32x32 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
+}

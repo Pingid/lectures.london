@@ -1,0 +1,93 @@
+@import './font.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: #fff;
+    --fg-color: #333;
+    --fg2-color: #9d9d9d;
+    --header-height: 3.5rem;
+    --body-height: calc(100vh - 4.5rem);
+
+    --text-sm: 0.875rem;
+    --text-1: 1rem;
+    --text-2: 1.4rem;
+    --text-3: 1.93rem;
+    --text-4: 8.312rem;
+  }
+
+  [data-dark-mode] {
+    --bg-color: #333;
+    --fg-color: #fff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-color: #333;
+      --fg-color: #fff;
+    }
+  }
+
+  @media (max-width: 800px) {
+    :root {
+      --text-size: 0.8;
+      --text-1: 1rem;
+      --text-2: 1.25rem;
+      --text-3: 1.93rem;
+      --text-4: 6.312rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    :root {
+      --text-1: 1rem;
+      --text-2: 1.2rem;
+      --text-3: 1.4rem;
+      --text-4: 2.312rem;
+    }
+  }
+
+  body {
+    background-color: var(--bg-color);
+    font-family: 'GeneralSans-Variable', 'helvetica', sans-serif;
+    color: var(--fg-color);
+  }
+
+  *,
+  ::before,
+  ::after {
+    border-color: var(--fg2-color);
+  }
+
+  p,
+  a,
+  input,
+  button {
+    @apply text-base;
+  }
+  h1 {
+    @apply text-2xl leading-none;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply font-medium border-b-2 border-fg whitespace-nowrap;
+  }
+
+  .text-outline {
+    color: var(--fg-color);
+    -webkit-text-fill-color: var(--bg-color); /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--fg-color);
+  }
+}

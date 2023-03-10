@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig-base.json",
+  "exclude": [],
+  "include": ["env.d.ts", ".mono"],
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "target": "ES2015",
+    "composite": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "references": [{ "path": "./@package" }]
+}

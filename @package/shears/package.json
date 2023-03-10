@@ -1,0 +1,33 @@
+{
+  "name": "@package/shears",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "Private",
+  "author": "Dan Beaven <dm.beaven@gmail.com>",
+  "scripts": {
+    "build": "tsc",
+    "watch": "yarn build --watch",
+    "test": "jest src/**/*.test.ts",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"
+  },
+  "dependencies": {
+    "css-select": "^5.1.0",
+    "dom-serializer": "^2.0.0",
+    "domhandler": "^5.0.2",
+    "domutils": "^3.0.1",
+    "htmlparser2": "^8.0.1",
+    "phin": "^3.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "^14.0.24",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.3.0",
+    "typescript": "5.0.0-beta"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}

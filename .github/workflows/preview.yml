@@ -1,0 +1,58 @@
+name: Preview
+
+on:
+  pull_request:
+    types: ['opened', 'edited', 'synchronize']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependancies
+        run: yarn install
+
+      - name: Build Packages
+        run: yarn build:ts
+
+      - name: Scrape lectures
+        run: yarn collect
+
+      - name: Build client
+        run: yarn build:client
+        env:
+          SITE_DOMAIN: ${{ github.ref_name }}.${{ secrets.SITE_DOMAIN }}
+
+      - name: Deploy to netlify
+        uses: jsmrcaga/action-netlify-deploy@master
+        with:
+          build_directory: '@client/dist'
+          install_command: 'echo Skipping installing the dependencies'
+          build_command: 'echo Skipping building the web files'
+          deploy_alias: ${{ github.ref_name }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_MESSAGE: 'Actions preview ${{ github.github.ref_name }}'
+
+      # - name: Status check
+      #   uses: Sibz/github-status-action@v1.1.1
+      #   with:
+      #     authToken: ${{ secrets.GITHUB_TOKEN }}
+      #     context: Netlify preview
+      #     state: success
+      #     target_url: ${{ env.NETLIFY_PREVIEW_URL }}

@@ -1,0 +1,34 @@
+{
+  "name": "lectures.london",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "yarn@3.4.1",
+  "workspaces": [
+    "@package/*",
+    "@client"
+  ],
+  "scripts": {
+    "build": "yarn build:ts && yarn build:client",
+    "build:ts": "tsc -b -v",
+    "build:client": "cd @client && yarn build",
+    "collect": "yarn script:collect -l ./@client/lectures.json --hosts ./@client/hosts.json",
+    "artifact": "yarn script:artifact --name $ARTIFACT_NAME --token $GITHUB_TOKEN --owner Pingid --repo lectures-london --dest '@client'",
+    "tweet": "yarn script:tweet --name $ARTIFACT_NAME --token $GITHUB_TOKEN --owner Pingid --repo lectures-london --dest '@client'",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "clean:ts": "tsc -b --clean",
+    "watch:ts": "tsc -b --watch"
+  },
+  "devDependencies": {
+    "@package/scripts": "workspace:^",
+    "esbuild": "^0.17.8",
+    "prettier": "^2.8.3",
+    "typescript": "5.0.0-beta"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "all"
+  }
+}

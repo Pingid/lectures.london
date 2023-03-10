@@ -1,0 +1,39 @@
+{
+  "name": "@package/scrapers",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "Private",
+  "author": "Dan Beaven <dm.beaven@gmail.com>",
+  "scripts": {
+    "build": "tsc",
+    "watch": "yarn build --watch",
+    "test:scrapers": "jest src/**/*.test.ts",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"
+  },
+  "dependencies": {
+    "@package/shears": "workspace:^",
+    "@total-typescript/ts-reset": "^0.3.7",
+    "chrono-node": "^2.2.6",
+    "dayjs": "^1.11.7",
+    "domutils": "^3.0.1",
+    "htmlparser2": "^8.0.1",
+    "phin": "^3.7.0",
+    "sanitize-html": "^1.27.2",
+    "unfluffjs": "^3.3.4",
+    "xml-js": "^1.6.11",
+    "zod": "^3.20.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "@types/node": "^14.0.27",
+    "@types/sanitize-html": "^1.23.3",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.3.0",
+    "typescript": "5.0.0-beta"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}

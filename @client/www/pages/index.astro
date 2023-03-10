@@ -1,0 +1,23 @@
+---
+import { Head } from '../../src/components/Meta'
+import Layout from '../layouts/Layout.astro'
+import { config } from '../config'
+import { Page } from '../../src'
+
+import '../../src/css/index.css'
+
+const lectures = await import('../../lectures.json').then((x) =>
+  x.default.slice(0, 25).map((x) => ({ title: x.title, time_start: x.time_start, id: x.id, host: x.host })),
+)
+---
+
+<Layout>
+  <Head slot="head" {...config} />
+  <Page client:load data={{ lectures: lectures as any }} page={{ key: '/', params: {}, state: {} }} />
+</Layout>
+
+<style>
+  body {
+    font-size: 10px;
+  }
+</style>

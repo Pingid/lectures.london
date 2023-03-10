@@ -1,0 +1,25 @@
+{
+  "exclude": ["**/node_modules", ".yarn", "**/*/_lib"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "allowJs": false,
+    "lib": ["dom", "ESNext"],
+
+    /* Additional Checks */
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    /* Module Resolution Options */
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "removeComments": false,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "noEmit": true
+  }
+}

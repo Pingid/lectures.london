@@ -1,0 +1,41 @@
+---
+import { config } from '../config'
+
+const GA_TRACKING_ID = import.meta.env.GA_TRACKING_ID
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <slot name="head" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed for Lectures London"
+      href={`${config.url}/rss.xml`}
+    />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // @ts-ignore: Property 'UrlPattern' does not exist
+      if (!globalThis.URLPattern) {
+        // @ts-ignore
+        await import('urlpattern-polyfill')
+      }
+    </script>
+    {
+      GA_TRACKING_ID && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          <script data-ga-tracking-id={GA_TRACKING_ID}>
+            const GA_TRACKING_ID = document.querySelector('[data-ga-tracking-id]').getAttribute('data-ga-tracking-id')
+            window.dataLayer = window.dataLayer || []; window.gtag = function () {window.dataLayer.push(arguments)}
+            window.gtag('js', new Date()); window.gtag('config', GA_TRACKING_ID)
+          </script>
+        </>
+      )
+    }
+  </body>
+</html>

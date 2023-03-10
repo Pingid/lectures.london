@@ -1,0 +1,7 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false
+  },
+  "references": [{ "path": "shears" }, { "path": "scrapers" }, { "path": "scripts" }]
+}

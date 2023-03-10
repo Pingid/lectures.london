@@ -53,4 +53,3 @@ export const run = crawler(async () => {
   console.log(lectures)
   return { ...host, lectures: lectures.map((y) => ({ ...y, free: true })) }
 })
-run.debug = true

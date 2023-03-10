@@ -53,13 +53,14 @@ export const createRouter = <T extends Record<string, any>>() => {
     type?: 'push' | 'replace'
     state: T[K]
     params: PathParams<K>
+    hash?: string
   }) => {
     const [, router] = userRouter()
     const href = build(p.to, p.params)
     return {
       href,
       onClick: function (this: any, e: MouseEvent & { currentTarget: HTMLAnchorElement; target: Element }) {
-        const url = window.location.origin + href + window.location.search
+        const url = window.location.origin + href + window.location.search + (p.hash ? `#${p.hash}` : '')
         e.preventDefault()
         if (p.type === 'replace') router.replace(url, p.params, JSON.parse(JSON.stringify(p.state)))
         else router.push(url, p.params, JSON.parse(JSON.stringify(p.state)))

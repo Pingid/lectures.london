@@ -7,7 +7,10 @@ export const LectureListItem = (p: { lecture: Lecture; disableTime?: boolean }) 
   const params = { host: slugit(p.lecture.host.name), lecture: p.lecture.id }
   const m = router.match('/:host/:lecture', params)
   return (
-    <article class="group grid [grid-template-columns:3.2rem_1fr] sm:[grid-template-columns:3.9rem_1fr] z-0">
+    <article
+      id={p.lecture.id}
+      class="group grid [grid-template-columns:3.2rem_1fr] sm:[grid-template-columns:3.9rem_1fr] z-0 scroll-mt-36"
+    >
       <div class={cn('pb-2 sm:pr-4 sm:px-3 sm:pt-1')}>
         {!p.disableTime && <p class="sm:text-right">{dayjs(p.lecture.time_start).format('HH:mm')}</p>}
       </div>

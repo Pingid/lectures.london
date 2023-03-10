@@ -1,7 +1,7 @@
 import * as s from '@package/shears'
 import phin from 'phin'
 
-import { formatDate } from '../../utility'
+import { formatDate, sanitize, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 
 const info = {
@@ -17,8 +17,8 @@ const lecture = s.query({
     if (x.src) return x as { src: string }
     return undefined
   }),
-  summary: s.map(s.query('.m-entity__body'), (x) => x?.trim()),
-  summary_html: s.query('.m-entity__body', s.html),
+  summary: s.map(s.query('.m-entity__body', s.html), sanitizeText),
+  summary_html: s.map(s.query('.m-entity__body', s.html), sanitize),
   booking_link: s.map(s.query('.sidebar__register a@href'), (x) => `https://www.gresham.ac.uk${x}`),
 })
 

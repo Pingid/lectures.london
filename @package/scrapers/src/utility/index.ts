@@ -66,7 +66,7 @@ export const sanitizeText = (html?: string) => {
     .replace(/\n{1,}/gim, '\n')
 }
 
-export const formatDate = (dateString: string) => dateString && parseDate(dateString)?.toISOString?.()
+export const formatDate = (dateString?: string) => (dateString ? parseDate(dateString)?.toISOString?.() : undefined)
 
 export const parseStartEnd = (y: string) =>
   parse(y).reduce(

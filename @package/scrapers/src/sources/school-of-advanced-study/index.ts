@@ -42,4 +42,3 @@ export const run = crawler(() =>
       return x
     }),
 )
-run.debug = true

@@ -29,6 +29,7 @@ export const run = crawler(async () => {
     summary: x.description._text,
     location: x['ev:location']._text,
     time_start: formatDate(x['ev:startdate']._text),
+    time_end: formatDate(x['ev:enddate']?._text),
   })) as any[]
 
   return { ...host, lectures }

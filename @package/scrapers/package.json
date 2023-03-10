@@ -19,7 +19,7 @@
     "domutils": "^3.0.1",
     "htmlparser2": "^8.0.1",
     "phin": "^3.7.0",
-    "sanitize-html": "^1.27.2",
+    "sanitize-html": "^2.3.2",
     "unfluffjs": "^3.3.4",
     "xml-js": "^1.6.11",
     "zod": "^3.20.6"

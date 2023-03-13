@@ -14,7 +14,7 @@
     "build:client": "cd @client && yarn build",
     "collect": "yarn script:collect -l ./@client/lectures.json --hosts ./@client/hosts.json",
     "artifact": "yarn script:artifact --name $ARTIFACT_NAME --token $GITHUB_TOKEN --owner Pingid --repo lectures-london --dest '@client'",
-    "tweet": "yarn script:tweet --name $ARTIFACT_NAME --token $GITHUB_TOKEN --owner Pingid --repo lectures-london --dest '@client'",
+    "tweet": "yarn script:tweet './@client/lectures.json'",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "clean:ts": "tsc -b --clean",
     "watch:ts": "tsc -b --watch"

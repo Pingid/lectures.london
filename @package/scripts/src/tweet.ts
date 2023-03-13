@@ -19,9 +19,9 @@ const app = command({
       access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     })
       .then((x) => new Twit(x))
-      .catch((e) => {
-        console.error(`Missing twitter client keys`)
-        return Promise.reject(e)
+      .catch((e: z.ZodError) => {
+        console.error(e.flatten())
+        return Promise.reject(new Error('Missing twitter client keys'))
       })
 
     const data = await fs.promises

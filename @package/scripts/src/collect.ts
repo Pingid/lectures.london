@@ -38,7 +38,7 @@ const app = command({
     ).run()
 
     const lectures = results
-      .map((y) => y.lectures.map((z) => ({ ...z, host: { id: hash(y.website), name: y.name } })))
+      .map((y) => y.lectures.map((z) => ({ ...z, host: { id: hash(y.website), name: y.name, twitter: y.twitter } })))
       .flat()
       .reduce(
         (a, b) => (a.some((y) => y.link === b.link) ? a : [...a, b]),

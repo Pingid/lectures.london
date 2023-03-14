@@ -50,6 +50,5 @@ const getHost = () =>
 export const run = crawler(async () => {
   const lectures = await getLectures()
   const host = await getHost()
-  console.log(lectures)
   return { ...host, lectures: lectures.map((y) => ({ ...y, free: true })) }
 })

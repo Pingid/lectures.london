@@ -20,7 +20,7 @@ const app = command({
     })
       .then((x) => new Twit(x))
       .catch((e: z.ZodError) => {
-        console.error(e.flatten())
+        console.error(e?.flatten() || e)
         return Promise.reject(new Error('Missing twitter client keys'))
       })
 

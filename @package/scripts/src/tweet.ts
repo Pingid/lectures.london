@@ -44,6 +44,7 @@ const app = command({
 run(app, process.argv.slice(2))
 
 const LectureSchema = z.object({
+  id: z.string(),
   link: z.string(),
   title: z.string(),
   time_start: z.string(),
@@ -61,6 +62,10 @@ const generateLectureTweet = (talk: z.TypeOf<typeof LectureSchema>) =>
   `${talk.title}
 ${dayjs(talk.time_start).format('HH:mm')}: ${talk.host.name}
 
+https://lectures.london/${talk.host.name
+    .replace(/[^\w\s]/gi, '')
+    .replace(/\s{1,}/gim, '-')
+    .toLowerCase()}/${talk.id}
 ${talk.link}
 
 ${talk.host.twitter} #london #lectures #publiclectures #lectureslondon 

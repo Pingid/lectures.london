@@ -1,7 +1,7 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
+import Scripts from '../../../layout/Scripts.astro'
 
-import { Head } from '../../../../src/components/Meta'
+import { MetaGlobal } from '../../../../src/components/Meta'
 import { slugit } from '../../../../src/util'
 import { config } from '../../../config'
 import { Page } from '../../../../src'
@@ -17,14 +17,50 @@ const lectures = await import('../../../../lectures.json').then((x) =>
   x.default.slice(0, 25).map((x) => ({ title: x.title, time_start: x.time_start, id: x.id, host: x.host })),
 )
 
-const data = Astro.props as Lecture
+const props = Astro.props as Lecture
+const params = Astro.params as { lecture: string; host: string }
+const description = props.summary
+  ?.replace(/\&nbsp;/gim, ' ')
+  ?.split(/(\.|\?|\!)\s/)
+  .slice(0, 2)
+  .join('. ')
 ---
 
-<Layout>
-  <Head client:load slot="head" {...{...config, title: data.title }} />
-  <Page
-    client:load
-    data={{ lectures: lectures as any }}
-    page={{ key: '/:host/:lecture', params: { host: Astro.params.host, lecture: Astro.params.lecture }, state: data }}
-  />
-</Layout>
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <MetaGlobal />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed for Lectures London"
+      href={`${config.url}/rss.xml`}
+    />
+    <title>{props.title}</title>
+    <meta name="description" content={description} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content={props.host.twitter} />
+    <meta name="twitter:creator" content={config.twitter} />
+    <meta name="twitter:title" content={props.title} />
+    <meta name="twitter:description" content={description} />
+    {props?.image?.src && <meta property="twitter:image" content={props?.image?.src} />}
+
+    <meta property="og:url" content={`${config.url}/${params.host}/${params.lecture}`} />
+    <meta property="og:title" content={props.title} />
+    <meta property="og:description" content={description} />
+    {props?.image?.src && <meta property="og:image" content={props?.image?.src} />}
+    <meta name="keywords" content={[props.host.name, ...config.keywords].join(',')} />
+  </head>
+  <body
+    ><Page
+      client:load
+      data={{ lectures: lectures as any }}
+      page={{
+        key: '/:host/:lecture',
+        params: { host: Astro.params.host, lecture: Astro.params.lecture },
+        state: props,
+      }}
+    /><Scripts />
+  </body>
+</html>

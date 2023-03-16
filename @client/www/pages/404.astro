@@ -1,34 +1,53 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import { MetaGlobal } from '@client/src/components/Meta'
+import Scripts from '../layout/Scripts.astro'
 import { config } from '../config'
 import '../../src/css/index.css'
 ---
 
-<Layout {...config}>
-  <div class="w-full h-[100dvh] flex items-center justify-center">
-    <div class="flex flex-col items-center space-y-2">
-      <h1>404</h1>
-      <h2>Page no longer exists</h2>
-      <a href="/" class="font-medium border-b-2 border-fg whitespace-nowrap flex items-center"
-        ><svg
-          stroke="currentColor"
-          fill="currentColor"
-          stroke-width="0"
-          viewBox="0 0 512 512"
-          height="1.3rem"
-          width="1.3rem"
-          class="-ml-2"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M320 128L192 256l128 128z"></path>
-        </svg> Go Home</a
-      >
-    </div>
-  </div>
-</Layout>
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <MetaGlobal />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed for Lectures London"
+      href={`${config.url}/rss.xml`}
+    />
+    <title>{config.title}</title>
+    <meta name="description" content={config.description} />
 
-<style>
-  body {
-    font-size: 10px;
-  }
-</style>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content={config.twitter} />
+    <meta name="twitter:creator" content={config.twitter} />
+    <meta property="og:url" content={config.url} />
+    <meta property="og:title" content={config.title} />
+    <meta property="og:description" content={config.description} />
+    <meta property="og:image" content={config.logo} />
+    <meta name="keywords" content={[...config.keywords].join(',')} />
+  </head>
+  <body>
+    <div class="w-full h-[100dvh] flex items-center justify-center">
+      <div class="flex flex-col items-center space-y-2">
+        <h1>404</h1>
+        <h2>Page no longer exists</h2>
+        <a href="/" class="font-medium border-b-2 border-fg whitespace-nowrap flex items-center"
+          ><svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 512 512"
+            height="1.3rem"
+            width="1.3rem"
+            class="-ml-2"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M320 128L192 256l128 128z"></path>
+          </svg> Go Home</a
+        >
+      </div>
+    </div>
+    <Scripts />
+  </body>
+</html>

@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap'
 export default defineConfig({
   srcDir: './www',
   site: process.env.SITE_URL,
+  outDir: 'build/client',
   integrations: [
     tailwind({ config: { applyBaseStyles: false } }),
     solidJs(),

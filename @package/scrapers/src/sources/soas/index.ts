@@ -1,7 +1,7 @@
 import * as s from '@package/shears'
 import phin from 'phin'
 
-import { parseStartEnd, sanitize, sanitizeText } from '../../utility'
+import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 
 const info = {
@@ -23,19 +23,24 @@ export const run = crawler(async () => {
   const events = await phin({ url, parse: 'json' }).then((x) => (x.body as any).data)
   const host = await getHost()
 
-  const lectures = events.map((y: any) => ({
-    link: `https://www.soas.ac.uk${y.attributes.path.alias}`,
-    title: y.attributes.title,
-    summary: y.attributes.field_teaser_summary.value + `\n${sanitizeText(y.attributes.body.value) || ''}`,
-    summary_html: y.attributes.field_teaser_summary.processed + `${sanitize(y.attributes.body.value) || ''}`,
-    location: `${y.attributes.field_venue}`,
-    ...parseStartEnd(
-      `${y.attributes.field_start_date}, ${y.attributes.field_start_time} ${
-        y.attributes.field_end_time !== '0' ? ` to ${y.attributes.field_end_time}` : ''
-      }`,
-    ),
-    free: true,
-  }))
+  const lectures = events.map((y: any) => {
+    return {
+      link: `https://www.soas.ac.uk${y.attributes.path.alias}`,
+      title: y.attributes.title,
+      summary: ((y.attributes?.field_teaser_summary?.value || '') + `\n${sanitizeText(y.attributes.body.value) || ''}`)
+        .trim()
+        .replace(/\n{1,}/gim, '\n'),
+      summary_html:
+        (y.attributes?.field_teaser_summary?.processed || '') + `${sanitizeHtml(y.attributes.body.value) || ''}`,
+      location: y?.attributes?.field_venue,
+      ...parseStartEnd(
+        `${y.attributes.field_start_date}, ${y.attributes.field_start_time} ${
+          y.attributes.field_end_time !== '0' ? ` to ${y.attributes.field_end_time}` : ''
+        }`,
+      ),
+      free: true,
+    }
+  })
 
   return { ...host, lectures }
 })

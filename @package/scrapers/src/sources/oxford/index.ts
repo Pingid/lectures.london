@@ -1,6 +1,6 @@
 import * as s from '@package/shears'
 
-import { parseStartEnd } from '../../utility'
+import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 
 const info = {
@@ -23,13 +23,13 @@ const getLectures = () =>
             date: '.field-name-field-event-date time',
             time: '.field-name-field-event-time > span',
             booking_link: '.field-name-field-event-booking-url a@href',
-            summary: s.map(s.query('.field-type-text-with-summary'), (x) => x?.trim()),
-            summary_html: s.map(s.query('.field-type-text-with-summary', s.html), (x) => x?.trim()),
+            summary: s.map(s.query('.field-type-text-with-summary', s.html), sanitizeText),
+            summary_html: s.map(s.query('.field-type-text-with-summary', s.html), sanitizeHtml),
           }),
         ),
       }),
-    )
-    .paginate('li.next a@href', 1)()
+      { paginate: { selector: 'li.next a@href', limit: 10 } },
+    )()
     .then((x) => {
       return x.flat().map(
         (r) =>
@@ -50,4 +50,10 @@ const getHost = () =>
     .goto(info.website, s.query({ description: 'meta[name="description"]@content' }))()
     .then((x) => ({ ...info, description: x.description || '' }))
 
-export const run = crawler(() => getLectures().then(async (lectures) => ({ ...(await getHost()), lectures })))
+export const run = crawler(() =>
+  getLectures()
+    .then(async (lectures) => ({ ...(await getHost()), lectures }))
+    .then((x) => {
+      return x
+    }),
+)

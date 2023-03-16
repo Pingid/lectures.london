@@ -1,6 +1,6 @@
 import * as s from '@package/shears'
 
-import { isUrl, parseStartEnd, sanitize, sanitizeText } from '../../utility'
+import { isUrl, parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 import { Lecture } from '../../entities'
 
@@ -24,7 +24,7 @@ const lecture = s.query({
         return { src: `https://www.kcl.ac.uk${y}` }
       }),
       summmary: s.map(s.query('.block--article__content', s.html), sanitizeText),
-      summmary_html: s.map(s.query('.block--article__content', s.html), sanitize),
+      summmary_html: s.map(s.query('.block--article__content', s.html), sanitizeHtml),
       booking_link: s.map(s.query('.block--location__details > a@href'), (x) => (isUrl(x) ? x : undefined)),
     }),
   ),

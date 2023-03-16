@@ -4,8 +4,6 @@ export type Parsed = dh.AnyNode | dh.AnyNode[]
 
 export interface Context<A> {
   data: A
-  origin: string
-  // fetch: (url: string) => Promise<{ body: string | Parsed }>
 }
 
 export interface Shear<A, B> {

@@ -1,6 +1,6 @@
 import * as s from '@package/shears'
 
-import { parseStartEnd, sanitize, sanitizeText } from '../../utility'
+import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 import { Lecture } from '../../entities'
 
@@ -15,7 +15,7 @@ const lecture = s.query({
       time: s.map(s.query('dl'), (x) => (x ? parseStartEnd(x) : undefined)),
       booking_link: '.c-content-hero__cta-links a@href',
       summary: s.map(s.query('.c-text', s.html), sanitizeText),
-      summary_html: s.map(s.query('.c-text', s.html), sanitize),
+      summary_html: s.map(s.query('.c-text', s.html), sanitizeHtml),
     }),
   ),
 })

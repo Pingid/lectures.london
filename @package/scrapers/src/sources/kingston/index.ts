@@ -1,6 +1,6 @@
 import * as s from '@package/shears'
 
-import { sanitize, sanitizeText } from '../../utility'
+import { sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 import { Lecture } from '../../entities'
 
@@ -18,7 +18,7 @@ const lecture = s.query({
   time_start: '[itemprop="startDate"]@datetime',
   location: '[itemprop="location"]',
   summary: s.map(s.query('[itemprop="description"]', s.html), sanitizeText),
-  summary_html: s.map(s.query('[itemprop="description"]', s.html), sanitize),
+  summary_html: s.map(s.query('[itemprop="description"]', s.html), sanitizeHtml),
   booking_link: '#middle-col .read-more-link a@href',
   image: s.map(s.query('img@src'), (x) => {
     if (!x) return undefined

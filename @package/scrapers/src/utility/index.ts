@@ -1,6 +1,6 @@
 import { parseDate, parse } from 'chrono-node'
 import { parseDocument } from 'htmlparser2'
-import sanitizeHtml from 'sanitize-html'
+import sanitize from 'sanitize-html'
 import { textContent } from 'domutils'
 
 export const isUrl = (url?: string) => {
@@ -13,9 +13,9 @@ export const isUrl = (url?: string) => {
   }
 }
 
-export const sanitize = (html?: string) => {
+export const sanitizeHtml = (html?: string) => {
   if (!html) return undefined
-  return sanitizeHtml(html, {
+  return sanitize(html, {
     allowedTags: [
       'div',
       'article',
@@ -59,7 +59,7 @@ export const sanitize = (html?: string) => {
 }
 
 export const sanitizeText = (html?: string) => {
-  const sanitized = sanitize(html)
+  const sanitized = sanitizeHtml(html)
   if (!sanitized) return undefined
   return textContent(parseDocument(sanitized))
     .trim()

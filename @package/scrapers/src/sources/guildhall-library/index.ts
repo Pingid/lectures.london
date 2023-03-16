@@ -35,6 +35,6 @@ export const run = crawler(async () => {
     name: 'Guildhall Library',
     website: 'https://www.cityoflondon.gov.uk/things-to-do/guildhall-library/Pages/default.aspx',
     twitter: '@GuildhallLib',
-    lectures: lectures.map((x) => ({ ...x, ...x.time })),
+    lectures: lectures.map((x) => ({ ...x, ...x.time })).filter((x) => !!x.time_start),
   }
 })

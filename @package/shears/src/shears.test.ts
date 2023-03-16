@@ -1,5 +1,6 @@
 import { parseDocument } from 'htmlparser2'
 import { query } from './query'
+import { goto } from './goto'
 
 const html = (t: { raw: readonly string[] | ArrayLike<string> }, ...s: any[]) => ({
   data: parseDocument(String.raw(t, ...s)) as any,
@@ -49,29 +50,27 @@ it('should select object on all', async () => {
 
 jest.setTimeout(60000)
 
-// const map: {
-//   <A, B, C>(cb: (x: B) => C): (query: Shear<A, B>) => Shear<A, C>
-//   <A, B, C>(query: Shear<A, B>, cb: (x: B) => C): Shear<A, C>
-// } = (query: any, cb?: any) => {
-//   if (!cb) return (qry: any) => (a: any) => qry(a).then(query)
-//   return (a) => query(a).then(cb)
-// }
+it('should handle goto url', async () => {
+  const url = 'http://foo.com'
+  const go = goto.use({ driver: (page) => Promise.resolve({ data: `<p>${page}</p>` }) })
+  const result = await go(url, query('p'))()
+  expect(result).toBe(url)
+})
 
-// it.only('should handle nested', async () => {
-//   const r = await goto(
-//     'https://www.ox.ac.uk/events-list?type=200',
-//     query(['.view-content .node-event'], {
-//       title: 'a',
-//       link: map(query('a@href'), (x) => (x ? `https://www.ox.ac.uk${x}` : undefined)),
-//       merge: goto(
-//         'a@href',
-//         query({
-//           // free: map(query('.field-name-field-event-cost > span'), (x) => /free/gim.test(x || '')),
-//           k: '.field-name-field-event-booking-url a@href',
-//         }),
-//       ),
-//     }),
-//   ).paginate('li.next a@href', 1)()
+it('should handle goto selector', async () => {
+  const go = goto.use({ driver: () => Promise.resolve({ data: `<p>Page 2</p>` }) })
+  const ctx = html`<div><a href="http://foo.com">bar</a></div>`
+  const result = await query({ page: go('a@href', query('p')) })(ctx)
+  expect(result).toEqual({ page: 'Page 2' })
+})
 
-//   console.log(r.flat().map((x) => ({ ...x, ...x.merge })))
-// })
+it('should handle pagination', async () => {
+  const go = goto.use({
+    driver: (url: string) => Promise.resolve({ data: `<div><p>${url}</p>><a href="${url}">next</a></div>` }),
+  })
+  const ctx = html`<div><a href="http://foo.com">bar</a></div>`
+  const result = await query({
+    page: go('a@href', query('p'), { paginate: { selector: 'a@href', limit: 2 } }),
+  })(ctx)
+  expect(result).toEqual({ page: ['http://foo.com', 'http://foo.com', 'http://foo.com'] })
+})

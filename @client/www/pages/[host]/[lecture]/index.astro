@@ -24,6 +24,7 @@ const description = props.summary
   ?.split(/(\.|\?|\!)\s/)
   .slice(0, 2)
   .join('. ')
+const image = props?.image?.src || config.logo
 ---
 
 <!DOCTYPE html>
@@ -44,12 +45,12 @@ const description = props.summary
     <meta name="twitter:creator" content={config.twitter} />
     <meta name="twitter:title" content={props.title} />
     <meta name="twitter:description" content={description} />
-    {props?.image?.src && <meta property="twitter:image" content={props?.image?.src} />}
+    <meta property="twitter:image" content={image} />
 
     <meta property="og:url" content={`${config.url}/${params.host}/${params.lecture}`} />
     <meta property="og:title" content={props.title} />
     <meta property="og:description" content={description} />
-    {props?.image?.src && <meta property="og:image" content={props?.image?.src} />}
+    <meta property="og:image" content={image} />
     <meta name="keywords" content={[props.host.name, ...config.keywords].join(',')} />
   </head>
   <body

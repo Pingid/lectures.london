@@ -1,6 +1,7 @@
 ---
-import { Head } from '../../src/components/Meta'
-import Layout from '../layouts/Layout.astro'
+import Scripts from '../layout/Scripts.astro'
+
+import { MetaGlobal } from '../../src/components/Meta'
 import { config } from '../config'
 import { Page } from '../../src'
 
@@ -11,13 +12,34 @@ const lectures = await import('../../lectures.json').then((x) =>
 )
 ---
 
-<Layout>
-  <Head slot="head" {...config} />
-  <Page client:load data={{ lectures: lectures as any }} page={{ key: '/', params: {}, state: {} }} />
-</Layout>
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <MetaGlobal />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed for Lectures London"
+      href={`${config.url}/rss.xml`}
+    />
+    <title>{config.title}</title>
+    <meta name="description" content={config.description} />
 
-<style>
-  body {
-    font-size: 10px;
-  }
-</style>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content={config.twitter} />
+    <meta name="twitter:creator" content={config.twitter} />
+    <meta name="twitter:title" content={config.title} />
+    <meta name="twitter:description" content={config.description} />
+    <meta name="twitter:image" content={config.logo} />
+
+    <meta property="og:url" content={config.url} />
+    <meta property="og:title" content={config.title} />
+    <meta property="og:description" content={config.description} />
+    <meta property="og:image" content={config.logo} />
+    <meta name="keywords" content={[...config.keywords].join(',')} />
+  </head>
+  <body>
+    <Page client:load data={{ lectures: lectures as any }} page={{ key: '/', params: {}, state: {} }} />
+    <Scripts />
+  </body>
+</html>

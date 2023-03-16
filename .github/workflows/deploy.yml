@@ -49,7 +49,8 @@ jobs:
       - name: Deploy to netlify
         uses: jsmrcaga/action-netlify-deploy@master
         with:
-          build_directory: '@client/dist'
+          build_directory: '@client/build/client'
+          functions_directory: '@client/build/functions'
           install_command: 'echo Skipping installing the dependencies'
           build_command: 'echo Skipping building the web files'
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

@@ -4,7 +4,9 @@ export const config = {
     'Public talks and lectures hosted by institutes and universities in London on topics including law, art sustainability, philosophy, history, economics and much more',
   author: 'Dan Beaven',
   url: import.meta.env.SITE_URL,
-  logo: '/icon.png',
+  origin: import.meta.env.SITE_URL,
+  logo: `${import.meta.env.SITE_URL}/icon.png`,
+  twitter: '@lectures_london',
   keywords: ['lectures', 'london'],
 }
 

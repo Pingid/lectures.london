@@ -4,7 +4,7 @@ import { cn, slugit } from '../util'
 import { router } from '../router'
 
 export const LectureListItem = (p: { lecture: Lecture; disableTime?: boolean }) => {
-  const params = { host: slugit(p.lecture.host.name), lecture: p.lecture.id }
+  const params = { host: slugit(p.lecture.host.name), lecture: slugit(p.lecture.title) }
   const m = router.match('/:host/:lecture', params)
   return (
     <article
@@ -16,11 +16,7 @@ export const LectureListItem = (p: { lecture: Lecture; disableTime?: boolean }) 
       </div>
       <div class="w-full border-b pb-3 sm:pb-2 sm:pt-1">
         <a
-          {...router.link({
-            to: '/:host/:lecture',
-            params: { host: slugit(p.lecture.host.name), lecture: p.lecture.id },
-            state: p.lecture,
-          })}
+          {...router.link({ to: '/:host/:lecture', params, state: p.lecture })}
           class={cn('hover:underline underline-offset-4', [
             !!m(),
             'font-medium [text-decoration-color:var(--fg2-color)] hover:[text-decoration-color:var(--fg-color)]',

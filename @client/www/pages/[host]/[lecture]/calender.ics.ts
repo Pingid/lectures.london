@@ -6,7 +6,7 @@ import { slugit } from '../../../../src/util'
 export const getStaticPaths = async () => {
   const lectures = await import('../../../../lectures.json').then((x) => x.default)
   return lectures.map((x) => ({
-    params: { lecture: x.id, host: slugit(x.host.name) },
+    params: { lecture: slugit(x.title), host: slugit(x.host.name) },
     props: x,
   }))
 }

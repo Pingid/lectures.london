@@ -29,14 +29,14 @@ export interface GoTo {
   use: (ctx: Partial<Context<any>>) => GoTo
 }
 
-export const goto: GoTo = (source, selector, config) => {
+export const goto: GoTo = (source, selector, options) => {
   const page = { acc: 0 }
   const execute =
     (_url: string): any =>
     async (ctx?: Context<Parsed>) => {
       const driver =
         ctx?.driver ||
-        config?.driver ||
+        options?.driver ||
         ((url, ctx) =>
           phin({ url, followRedirects: true }).then((x) => ({
             ...ctx,
@@ -51,9 +51,9 @@ export const goto: GoTo = (source, selector, config) => {
       if (!isUrl(url)) {
         if (!ctx?.data) throw new Error(`${url} is not a valid URL`)
         const result = await query(url)(ctx)
-        if (!result && page.acc > 0 && !config?.paginate?.failOnMissing) return []
+        if (!result && page.acc > 0 && !options?.paginate?.failOnMissing) return []
         if (!result) {
-          throw new Error(`Did find a result for ${url}${config?.paginate ? ` on paginate: ${page.acc}` : ''}`)
+          throw new Error(`Did find a result for ${url}${options?.paginate ? ` on paginate: ${page.acc}` : ''}`)
         }
         if (isUrl(result)) url = result
         if (/^\//.test(result.trim()) && ctx.origin) url = `${ctx.origin}${result.trim()}`
@@ -64,14 +64,15 @@ export const goto: GoTo = (source, selector, config) => {
         .then((x) => ({ ...ctx, ...x, data: typeof x.data === 'string' ? parseDocument(x.data) : x.data }))
         .then((x) => {
           return Promise.resolve(selector(x)).then(async (result: any) => {
-            if (!config?.paginate?.selector) return result
-            const limit = typeof config?.paginate.limit === 'number' ? config?.paginate.limit : Infinity
+            if (!options?.paginate?.selector) return result
+            const limit = typeof options?.paginate.limit === 'number' ? options?.paginate.limit : Infinity
             if (page.acc >= limit) return [result]
             page.acc += 1
             const selector =
-              typeof config.paginate.selector === 'string'
-                ? config.paginate.selector
-                : await config.paginate.selector(x)
+              typeof options.paginate.selector === 'string'
+                ? options.paginate.selector
+                : await options.paginate.selector(x)
+
             return execute(selector)(x).then((res: any[]) => [result, ...res])
           })
         })
@@ -81,7 +82,7 @@ export const goto: GoTo = (source, selector, config) => {
 }
 
 goto.use = (_ctx) => {
-  const _goto: GoTo = (url, selector) => (ctx) => goto(url, selector)({ ...ctx, ..._ctx } as any)
+  const _goto: GoTo = (url, selector, options) => (ctx) => goto(url, selector, options)({ ...ctx, ..._ctx } as any)
   _goto.use = (ctx) => goto.use({ ..._ctx, ...ctx })
   return _goto
 }

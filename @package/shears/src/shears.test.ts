@@ -72,5 +72,6 @@ it('should handle pagination', async () => {
   const result = await query({
     page: go('a@href', query('p'), { paginate: { selector: 'a@href', limit: 2 } }),
   })(ctx)
+
   expect(result).toEqual({ page: ['http://foo.com', 'http://foo.com', 'http://foo.com'] })
 })

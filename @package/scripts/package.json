@@ -23,7 +23,7 @@
     "esbuild": "^0.17.8",
     "jest": "^26.1.0",
     "ts-jest": "^26.3.0",
-    "typescript": "5.0.0-beta"
+    "typescript": "5.0.2"
   },
   "jest": {
     "preset": "ts-jest",

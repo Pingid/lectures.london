@@ -29,6 +29,6 @@
     "@package/scripts": "workspace:^",
     "env-cmd": "^10.1.0",
     "esbuild": "^0.17.8",
-    "typescript": "5.0.0-beta"
+    "typescript": "5.0.2"
   }
 }

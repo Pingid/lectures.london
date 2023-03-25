@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@3.5.0",
   "workspaces": [
     "@package/*",
     "@client"
@@ -23,7 +23,7 @@
     "@package/scripts": "workspace:^",
     "esbuild": "^0.17.8",
     "prettier": "^2.8.3",
-    "typescript": "5.0.0-beta"
+    "typescript": "5.0.2"
   },
   "prettier": {
     "semi": false,

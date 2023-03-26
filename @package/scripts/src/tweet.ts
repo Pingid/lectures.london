@@ -61,12 +61,15 @@ const TwitSchema = z.object({
 const generateLectureTweet = (talk: z.TypeOf<typeof LectureSchema>) =>
   `${talk.title}
 ${dayjs(talk.time_start).format('HH:mm')}: ${talk.host.name}
-https://lectures.london/${talk.host.name
-    .replace(/[^\w\s]/gi, '')
-    .replace(/\s{1,}/gim, '-')
-    .toLowerCase()}/${talk.id}
+https://lectures.london/${slugit(talk.host.name)}/${slugit(talk.title)}
 
 ${talk.link}
 
 ${talk.host.twitter} #london #lectures #publiclectures #lectureslondon 
 `
+
+const slugit = (str: string) =>
+  str
+    .replace(/[^\w\s]/gim, '')
+    .replace(/\s{1,}/gim, '-')
+    .toLowerCase()

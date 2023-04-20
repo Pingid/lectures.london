@@ -37,7 +37,10 @@ const app = command({
 
     for (let i in data) {
       const status = generateLectureTweet(data[i])
-      await client.post('statuses/update', { status })
+      await client.post('statuses/update', { status }).catch((e) => {
+        console.error(`Failed to post`, e)
+        console.error(status)
+      })
     }
   },
 })

@@ -39,7 +39,7 @@ const Layout = () => {
         'md:[grid-template-columns:1fr_0]',
       ])}
     >
-      <div class={cn('pl-3', [!!match(), 'hidden md:block', 'pr-3'])}>
+      <div class={cn('pl-3', [!!match(), 'sm:hidden md:block', 'pr-3'])}>
         <Banner />
         <LectureList lectures={talks()} loading={data.loading} />
       </div>

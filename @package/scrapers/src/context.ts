@@ -14,7 +14,11 @@ export const crawler: {
     (ctx: CrawlerContext): Promise<Entity.Host>
   }
 } = (fn) => {
-  const caller = (ctx: CrawlerContext) => fn(ctx).then((x) => Entity.Host.parseAsync(x))
+  const caller = (ctx: CrawlerContext) =>
+    fn(ctx).then((x) => {
+      const lectures = (x.lectures || []).filter((y): y is Entity.Lecture => Entity.Lecture.safeParse(y).success)
+      return Entity.Host.parseAsync({ ...x, lectures })
+    })
   caller.debug = false
   return caller
 }

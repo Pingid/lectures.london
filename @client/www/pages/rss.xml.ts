@@ -1,4 +1,4 @@
-import rss from '@astrojs/rss'
+import rss, { RSSFeedItem } from '@astrojs/rss'
 import { config } from '../config'
 import dayjs from 'dayjs'
 
@@ -15,17 +15,17 @@ export const get = async () => {
     title: config.title,
     description: config.description,
     site: config.url,
-    items: lectures.map((x) => ({
-      title: x.title,
-      description: `time: ${dayjs(x.time_start).format('DD MMM YY')}\nlocation:${x.host.name}`,
-      content: x?.summary,
-      pubDate: new Date(),
-      link: x.link,
-      source: x.link,
-      category: 'Public Lecture',
-      guid: x.id,
-      customData: [x.image?.src ? image(x.image?.src, x.title) : ''].join(''),
-    })),
+    items: lectures.map(
+      (x): RSSFeedItem => ({
+        title: x.title,
+        description: `time: ${dayjs(x.time_start).format('DD MMM YY')}\nlocation:${x.host.name}`,
+        content: x?.summary,
+        pubDate: new Date(),
+        link: x.link,
+        source: { title: '', url: x.link },
+        customData: [x.image?.src ? image(x.image?.src, x.title) : ''].join(''),
+      }),
+    ),
     customData: [
       `<lastBuildDate>${new Date().toDateString()}</lastBuildDate>`,
       `<generator>Lectures Londond</generator>`,

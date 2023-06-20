@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "@package/scripts": "workspace:^",
-    "esbuild": "^0.17.8",
-    "prettier": "^2.8.3",
+    "esbuild": "^0.18.5",
+    "prettier": "^2.8.8",
     "typescript": "5.0.2"
   },
   "prettier": {

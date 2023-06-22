@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { command, run, string, positional } from 'cmd-ts'
+import { TwitterApi } from 'twitter-api-v2'
 import dayjs from 'dayjs'
-import Twit from 'twit'
 import fs from 'fs'
 import z from 'zod'
 
@@ -13,12 +13,12 @@ const app = command({
   },
   handler: async ({ lectures }) => {
     const client = await TwitSchema.parseAsync({
-      consumer_key: process.env.TWITTER_CONSUMER_KEY,
-      consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-      access_token: process.env.TWITTER_ACCESS_TOKEN,
-      access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+      appKey: process.env.TWITTER_CONSUMER_KEY,
+      appSecret: process.env.TWITTER_CONSUMER_SECRET,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,
+      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     })
-      .then((x) => new Twit(x))
+      .then((x) => new TwitterApi(x))
       .catch((e: z.ZodError) => {
         console.error(e)
         return Promise.reject(new Error('Missing twitter client keys'))
@@ -37,7 +37,7 @@ const app = command({
 
     for (let i in data) {
       const status = generateLectureTweet(data[i])
-      await client.post('statuses/update', { status }).catch((e) => {
+      await client.v2.tweet(status).catch((e) => {
         console.error(`Failed to post`, e)
         console.error(status)
       })
@@ -55,10 +55,10 @@ const LectureSchema = z.object({
 })
 
 const TwitSchema = z.object({
-  consumer_key: z.string(),
-  consumer_secret: z.string(),
-  access_token: z.string(),
-  access_token_secret: z.string(),
+  appKey: z.string(),
+  appSecret: z.string(),
+  accessToken: z.string(),
+  accessSecret: z.string(),
 })
 
 const generateLectureTweet = (talk: z.TypeOf<typeof LectureSchema>) =>

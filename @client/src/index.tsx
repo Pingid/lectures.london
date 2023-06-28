@@ -1,6 +1,7 @@
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 import { Show } from 'solid-js'
 import dayjs from 'dayjs'
+import { cn } from 'mcn'
 
 import { LectureCard } from './components/LectureCard'
 import { LectureList } from './components/LectureList'
@@ -9,7 +10,6 @@ import { Header } from './components/Header'
 
 import { useSearch, StoreProvider, getStore, useStore } from './data'
 import { router } from './router'
-import { cn } from './util'
 
 dayjs.extend(LocalizedFormat)
 

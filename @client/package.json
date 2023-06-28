@@ -21,6 +21,7 @@
     "dayjs": "^1.11.8",
     "fuse.js": "^6.6.2",
     "ical-generator": "^3.6.1",
+    "mcn": "^0.0.3",
     "solid-js": "^1.7.6",
     "tailwindcss": "^3.3.2",
     "urlpattern-polyfill": "^6.0.2"

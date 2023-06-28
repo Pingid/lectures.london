@@ -1,8 +1,8 @@
 import { For } from 'solid-js'
 import dayjs from 'dayjs'
+import { cn } from 'mcn'
 
 import { LectureListItem } from './LectureItem'
-import { cn } from '../util'
 
 export const LectureList = (props: { lectures: Lecture[]; loading?: boolean }) => {
   return (

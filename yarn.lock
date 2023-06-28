@@ -1753,6 +1753,7 @@ __metadata:
     esbuild: ^0.18.5
     fuse.js: ^6.6.2
     ical-generator: ^3.6.1
+    mcn: ^0.0.3
     solid-js: ^1.7.6
     tailwindcss: ^3.3.2
     typescript: 5.0.2
@@ -6657,6 +6658,13 @@ __metadata:
   version: 3.0.3
   resolution: "markdown-table@npm:3.0.3"
   checksum: 8fcd3d9018311120fbb97115987f8b1665a603f3134c93fbecc5d1463380c8036f789e2a62c19432058829e594fff8db9ff81c88f83690b2f8ed6c074f8d9e10
+  languageName: node
+  linkType: hard
+
+"mcn@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "mcn@npm:0.0.3"
+  checksum: 5dcf91eb1aad89daa35d332c6cf6521f5ac3fbcaaaee8ffcf31ecfc478868a78f334930bd445ed4a2aa83ea3cf6de108575a3c60cfaead08b3750f03024c865b
   languageName: node
   linkType: hard
 

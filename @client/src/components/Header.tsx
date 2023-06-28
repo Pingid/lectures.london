@@ -1,5 +1,5 @@
 import { router } from '../router'
-import { cn } from '../util'
+import { cn } from 'mcn'
 
 export const Header = () => {
   const [value, update] = router.query('query')

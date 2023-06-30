@@ -1,6 +1,7 @@
 import { CountArrayDepth, Last, Parsed, Shear, Typeof } from './types'
 import { selectOne, selectAll } from 'css-select'
 import * as du from 'domutils'
+import * as is from 'typeofit'
 
 export interface Query<T> extends Shear<Parsed, T> {}
 
@@ -35,7 +36,7 @@ export const query: {
 
     const isLast = rest.length === 0
 
-    if (typeof selector === 'string') {
+    if (is.string(selector)) {
       let [qry, attr] = selector.split('@')
       const data = qry ? selectOne(qry, ctx.data) : ctx.data
       if (!isLast) return query(...rest)({ ...ctx, data })
@@ -44,14 +45,14 @@ export const query: {
       return du.textContent(data)
     }
 
-    if (typeof selector === 'function') {
+    if (is.func(selector)) {
       return selector(ctx).then((result: any) => {
         if (!isLast) return query(...rest)(result)
         return result
       })
     }
 
-    if (Array.isArray(selector)) {
+    if (is.array()(selector)) {
       if (!ctx.data) return []
       let [qry, attr] = selector[0].split('@')
       const data = selectAll(qry, ctx.data)

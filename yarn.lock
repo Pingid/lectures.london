@@ -1988,6 +1988,7 @@ __metadata:
     jest: ^26.1.0
     phin: ^3.7.0
     ts-jest: ^26.3.0
+    typeofit: ^0.0.1
     typescript: 5.0.2
   languageName: unknown
   linkType: soft
@@ -9756,6 +9757,13 @@ __metadata:
   dependencies:
     is-typedarray: ^1.0.0
   checksum: 99c11aaa8f45189fcfba6b8a4825fd684a321caa9bd7a76a27cf0c7732c174d198b99f449c52c3818107430b5f41c0ccbbfb75cb2ee3ca4a9451710986d61a60
+  languageName: node
+  linkType: hard
+
+"typeofit@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "typeofit@npm:0.0.1"
+  checksum: d142238192d5ed567b85445a0cb345163f70bb2549ad8d90320dbf5f1cc23610a913904bc7ddf5d54b6e7e3e99e93699b76eca37bcaf115ab3b2afff712e32f8
   languageName: node
   linkType: hard
 

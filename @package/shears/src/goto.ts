@@ -1,4 +1,5 @@
 import { parseDocument } from 'htmlparser2'
+import * as is from 'typeofit'
 import phin from 'phin'
 
 import { Parsed, Shear, Context } from './types'
@@ -61,17 +62,16 @@ export const goto: GoTo = (source, selector, options) => {
       }
 
       return driver(url, ctx)
-        .then((x) => ({ ...ctx, ...x, data: typeof x.data === 'string' ? parseDocument(x.data) : x.data }))
+        .then((x) => ({ ...ctx, ...x, data: is.string(x.data) ? parseDocument(x.data) : x.data }))
         .then((x) => {
           return Promise.resolve(selector(x)).then(async (result: any) => {
             if (!options?.paginate?.selector) return result
-            const limit = typeof options?.paginate.limit === 'number' ? options?.paginate.limit : Infinity
+            const limit = is.number(options?.paginate.limit) ? options?.paginate.limit : Infinity
             if (page.acc >= limit) return [result]
             page.acc += 1
-            const selector =
-              typeof options.paginate.selector === 'string'
-                ? options.paginate.selector
-                : await options.paginate.selector(x)
+            const selector = is.string(options.paginate.selector)
+              ? options.paginate.selector
+              : await options.paginate.selector(x)
 
             return execute(selector)(x).then((res: any[]) => [result, ...res])
           })

@@ -1,36 +1,36 @@
 export const Banner = () => {
   return (
-    <div class="sm:px-2 py-6 space-y-6 max-w-3xl">
-      <div class="space-y-2 sm:columns-2">
-        <p>Find free to attend lectures from leading universities and institutions around London</p>
-        <p>
-          You can find the code on our{' '}
-          <a class="btn" rel="noopener noreferrer" target="_blank" href={`https://github.com/Pingid/lectures.london`}>
-            repository
+    <div class="sm:px-2 pt-6 space-y-6">
+      <div class="space-y-2 sm:columns-1">
+        <p class="max-w-sm">Find free to attend lectures from leading universities and institutions around London</p>
+
+        <div class="w-full flex flex-wrap gap-3 pb-2">
+          <a class="btn" rel="noopener noreferrer" target="_blank" href="https://twitter.com/lectures_london">
+            twitter
           </a>
-          , where we welcome contributions and feedback. This is a community lead project and if you spot any problems
-          or mistakes on the site please file an{' '}
+          <a class="btn" rel="noopener noreferrer" target="_blank" href="/calender.ics">
+            calender
+          </a>
+          <label for="more" class="btn w-min cursor-pointer sm:hidden">
+            issues
+          </label>
+        </div>
+        <input id="more" type="checkbox" class="peer hidden" />
+        <p class="invisible h-0 sm:h-auto sm:visible peer-checked:h-auto peer-checked:visible text-sm">
+          If you spot any problems or mistakes on the site please file an{' '}
           <a
-            class="btn"
+            class="btn text-sm"
             rel="noopener noreferrer"
             target="_blank"
             href={`https://github.com/Pingid/lectures.london/issues`}
           >
             issue
           </a>
-          . For those more technically minded a pull request with a fix is always appreciated.
+          . Or get in contact through{' '}
+          <a class="btn text-sm" rel="noopener noreferrer" target="_blank" href="https://twitter.com/lectures_london">
+            twitter
+          </a>
         </p>
-      </div>
-      <div class="w-full flex flex-wrap gap-3">
-        <a class="btn" rel="noopener noreferrer" target="_blank" href="https://twitter.com/lectures_london">
-          twitter
-        </a>
-        <a class="btn" rel="noopener noreferrer" target="_blank" href="/calender.ics">
-          calender
-        </a>
-        {/* <a class="btn" rel="noopener noreferrer" target="_blank" href="/rss.xml">
-          rss
-        </a> */}
       </div>
     </div>
   )

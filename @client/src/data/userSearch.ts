@@ -8,15 +8,20 @@ const sanitize = <T>(x: T): T => JSON.parse(JSON.stringify(x))
 
 export const useSearch = () => {
   const [results, setresults] = createSignal<SearchResult[]>([])
-  const [query] = router.query('query')
+  const [query, setquery] = router.query('query')
   const [data] = useStore()
 
   const active = () => query().length > 1
 
   const fuse = useFuse((e) => (e.type === 'RESULTS' ? setresults(e.payload) : null))
-  createEffect(() => fuse.send(sanitize({ type: 'ADD_LECTURES', payload: { lectures: data.lectures, options } })))
-  createEffect(() => active() && fuse.send({ type: 'SEARCH', payload: query() }))
-
+  createEffect(() => {
+    fuse.send(sanitize({ type: 'ADD_LECTURES', payload: { lectures: data.lectures, options } }))
+    if (active()) fuse.send({ type: 'SEARCH', payload: query() })
+  })
+  createEffect(() => {
+    const query = new URLSearchParams(window.location.search).get('query')
+    if (query) setquery(query)
+  })
   return { results, active }
 }
 

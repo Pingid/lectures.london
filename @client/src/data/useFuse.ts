@@ -5,7 +5,7 @@ import { FromWorker, ToWorker, cleanSearchResults } from '../worker/search'
 export type { SearchResult } from '../worker/search'
 
 export const useFuse = (onMessage: (ev: FromWorker) => any) => {
-  if (typeof Worker !== 'undefined') {
+  if (false && typeof Worker !== 'undefined') {
     let worker: Worker | null = null
     const send = (data: ToWorker) => Promise.resolve(worker?.postMessage(data))
     createEffect(() => {
@@ -17,9 +17,11 @@ export const useFuse = (onMessage: (ev: FromWorker) => any) => {
   }
 
   let fuse: Fuse<Lecture>
+  let Fuse: any
+
   const send = async (data: ToWorker) => {
+    if (!Fuse) Fuse = (await import('fuse.js').then((x) => x.default)) as any
     if (data.type === 'ADD_LECTURES') {
-      const Fuse = await import('fuse.js').then((x) => x.default)
       const index = Fuse.createIndex(data.payload.options.keys, data.payload.lectures)
       fuse = new Fuse(data.payload.lectures, data.payload.options, index)
     }

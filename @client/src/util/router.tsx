@@ -61,6 +61,7 @@ export const createRouter = <T extends Record<string, any>>() => {
       href,
       onClick: function (this: any, e: MouseEvent & { currentTarget: HTMLAnchorElement; target: Element }) {
         const url = window.location.origin + href + window.location.search + (p.hash ? `#${p.hash}` : '')
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return
         e.preventDefault()
         if (p.type === 'replace') router.replace(url, p.params, JSON.parse(JSON.stringify(p.state)))
         else router.push(url, p.params, JSON.parse(JSON.stringify(p.state)))

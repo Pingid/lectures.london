@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "yarn tsc --noEmit && yarn worker && env-cmd --silent -- astro build && mkdir build/functions || true",
+    "build": "yarn tsc --noEmit && yarn worker && env-cmd --silent -- astro build && esbuild ./functions/*.ts --outdir=build/functions",
     "preview": "astro preview",
     "astro": "astro",
     "worker": "esbuild --bundle --platform=browser --target=esnext --minify ./src/worker/search.worker.ts --outfile='./public/search.worker.js'",

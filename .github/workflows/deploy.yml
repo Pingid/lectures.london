@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - .github/workflows/production:deploy.yml
+      - .github/workflows/deploy.yml
       - '@client/**'
     branches:
       - main
@@ -19,17 +19,18 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
-      # - uses: actions/cache@v3
-      #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install dependancies
         run: yarn install
@@ -47,8 +48,7 @@ jobs:
           GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
 
       - name: Deploy to netlify
-        uses: jsmrcaga/action-netlify-deploy@master
-        with:
+        env:
           build_directory: '@client/build/client'
           functions_directory: '@client/build/functions'
           install_command: 'echo Skipping installing the dependencies'
@@ -57,3 +57,5 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_DEPLOY_MESSAGE: 'Actions deploy ${{ github.ref_name }}'
           NETLIFY_DEPLOY_TO_PROD: true
+          DEBUG: '*'
+        run: yarn netlify deploy --dir='./@client/build/client' --functions='./@client/build/functions' --message='Actions deploy ${{ github.ref_name }}' --prod --filter @lectures.london/client

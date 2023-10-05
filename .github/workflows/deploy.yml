@@ -15,34 +15,44 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        name: Setup pnpm cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependancies
-        run: yarn install
+        run: pnpm install
 
       - name: Build Packages
-        run: yarn build:ts
+        run: pnpm run build:ts
 
       - name: Scrape lectures
-        run: yarn collect
+        run: pnpm run collect
 
       - name: Build client
-        run: yarn build:client
+        run: pnpm run build:client
         env:
           SITE_URL: https://${{ secrets.SITE_DOMAIN }}
           GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
@@ -58,4 +68,4 @@ jobs:
           NETLIFY_DEPLOY_MESSAGE: 'Actions deploy ${{ github.ref_name }}'
           NETLIFY_DEPLOY_TO_PROD: true
           DEBUG: '*'
-        run: yarn netlify deploy --dir='./@client/build/client' --functions='./@client/build/functions' --message='Actions deploy ${{ github.ref_name }}' --prod --filter @lectures.london/client
+        run: pnpm netlify deploy --dir='./@client/build/client' --functions='./@client/build/functions' --message='Actions deploy ${{ github.ref_name }}' --prod --filter @lectures.london/client

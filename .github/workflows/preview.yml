@@ -11,37 +11,48 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        name: Setup pnpm cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependancies
-        run: yarn install
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build Packages
-        run: yarn build:ts
+        run: pnpm run build:ts
 
       - name: Scrape lectures
-        run: yarn collect
+        run: pnpm run collect
 
       - name: Get ref uri
         id: get-ref-uri
         run: echo ref_name=$(echo "refs/pull/1/merge" | tr / -) >> $GITHUB_OUTPUT
 
       - name: Build client
-        run: yarn build:client
+        run: pnpm run build:client
         env:
           SITE_URL: https://${{ env.BRANCH_NAME }}--${{ secrets.NETLIFY_SITE_NAME }}.netlify.app
 

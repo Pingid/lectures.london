@@ -3,18 +3,17 @@
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
-  "packageManager": "yarn@3.5.0",
   "workspaces": [
     "@package/*",
     "@client"
   ],
   "scripts": {
-    "build": "yarn build:ts && yarn build:client",
+    "build": "pnpm build:ts && pnpm build:client",
     "build:ts": "tsc -b -v",
-    "build:client": "cd @client && yarn build",
-    "collect": "yarn script:collect -l ./@client/lectures.json --hosts ./@client/hosts.json",
-    "artifact": "yarn script:artifact --name $ARTIFACT_NAME --token $GITHUB_TOKEN --owner Pingid --repo lectures-london --dest '@client'",
-    "tweet": "yarn script:tweet './@client/lectures.json'",
+    "build:client": "cd @client && pnpm build",
+    "collect": "script-collect -l ./@client/lectures.json --hosts ./@client/hosts.json",
+    "artifact": "script-artifact --name $ARTIFACT_NAME --token $GITHUB_TOKEN --owner Pingid --repo lectures-london --dest '@client'",
+    "tweet": "pnpm script-tweet './@client/lectures.json'",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "clean:ts": "tsc -b --clean",
     "watch:ts": "tsc -b --watch"

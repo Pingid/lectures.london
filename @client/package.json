@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "yarn tsc --noEmit && yarn worker && env-cmd --silent -- astro build && mkdir build/functions || true",
+    "build": "pnpm tsc --noEmit && pnpm worker && env-cmd --silent -- astro build && mkdir build/functions || true",
     "preview": "astro preview",
     "astro": "astro",
     "worker": "esbuild --bundle --platform=browser --target=esnext --minify ./src/worker/search.worker.ts --outfile='./public/search.worker.js'",
-    "collect": "yarn script:collect -l lectures.json --hosts hosts.json"
+    "collect": "pnpm script-collect -l lectures.json --hosts hosts.json"
   },
   "dependencies": {
     "@astrojs/rss": "^2.4.3",

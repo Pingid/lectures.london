@@ -5,13 +5,13 @@
   "license": "Private",
   "author": "Dan Beaven <dm.beaven@gmail.com>",
   "bin": {
-    "script:artifact": "lib/artifact.js",
-    "script:collect": "lib/collect.js",
-    "script:tweet": "lib/tweet.js"
+    "script-artifact": "lib/artifact.js",
+    "script-collect": "lib/collect.js",
+    "script-tweet": "lib/tweet.js"
   },
   "scripts": {
     "build": "tsc",
-    "watch": "yarn build --watch",
+    "watch": "pnpm build --watch",
     "test": "echo 'no tests'",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"

@@ -6,7 +6,7 @@
   "author": "Dan Beaven <dm.beaven@gmail.com>",
   "scripts": {
     "build": "tsc",
-    "watch": "yarn build --watch",
+    "watch": "pnpm build --watch",
     "test:scrapers": "jest src/**/*.test.ts",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"

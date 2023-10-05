@@ -44,6 +44,9 @@ jobs:
       - name: Build Packages
         run: pnpm run build:ts
 
+      - name: Install dependancies
+        run: pnpm install
+
       - name: Scrape lectures
         run: pnpm run collect
 

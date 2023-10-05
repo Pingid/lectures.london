@@ -7,9 +7,9 @@ export interface Query<T> extends Shear<Parsed, T> {}
 
 export const query: {
   <T extends ReadonlyArray<string | [string]>>(...args: T): Query<CountArrayDepth<T, string | undefined>>
-  <T extends [...ReadonlyArray<string | [string]>, Shear<Parsed, any>]>(...args: T): Query<
-    CountArrayDepth<T, Typeof<Last<T>> | undefined>
-  >
+  <T extends [...ReadonlyArray<string | [string]>, Shear<Parsed, any>]>(
+    ...args: T
+  ): Query<CountArrayDepth<T, Typeof<Last<T>> | undefined>>
   <
     T extends [
       ...ReadonlyArray<string | [string] | Shear<Parsed, Parsed>>,

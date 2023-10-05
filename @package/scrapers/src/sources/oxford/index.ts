@@ -38,7 +38,7 @@ const getLectures = () =>
             title: r.title,
             ...r.merge,
             ...parseStartEnd(`${r.merge.date}, ${r.merge.time}`),
-          } as any),
+          }) as any,
       )
     })
     .then((c) => {

@@ -6,6 +6,8 @@ import dayjs from 'dayjs'
 import fs from 'fs'
 import z from 'zod'
 
+process.env.TZ = 'Europe/London'
+
 const app = command({
   name: 'tweet',
   args: {

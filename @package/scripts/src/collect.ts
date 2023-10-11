@@ -8,6 +8,8 @@ import dayjs from 'dayjs'
 
 import { sources, Sources, Entity } from '@package/scrapers'
 
+process.env.TZ = 'Europe/London'
+
 const app = command({
   name: 'collect',
   args: {

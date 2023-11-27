@@ -55,8 +55,8 @@ export const LectureCard = (p: { lecture: Lecture }) => {
             calender
           </ButtonLink>
         </div>
-        <div class="pt-4 overflow-auto pb-24">
-          <Summary text={p.lecture.summary || ''} />
+        <div class="overflow-auto pb-24">
+          <Summary lecture={p.lecture} />
         </div>
       </div>
     </div>

@@ -24,7 +24,9 @@ const getLectures = () =>
             time: '.field-name-field-event-time > span',
             booking_link: '.field-name-field-event-booking-url a@href',
             summary: s.map(s.query('.field-type-text-with-summary', s.html), sanitizeText),
-            summary_html: s.map(s.query('.field-type-text-with-summary', s.html), sanitizeHtml),
+            summary_html: s.map(s.query(['.field-type-text-with-summary > * > *'], s.html), (x) =>
+              x.map(sanitizeHtml).join(''),
+            ),
           }),
         ),
       }),

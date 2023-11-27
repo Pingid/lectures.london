@@ -18,7 +18,7 @@ const lecture = s.query({
     return undefined
   }),
   summary: s.map(s.query('.m-entity__body', s.html), sanitizeText),
-  summary_html: s.map(s.query('.m-entity__body', s.html), sanitizeHtml),
+  summary_html: s.map(s.query(['.m-entity__body p'], s.html), (x) => x.map(sanitizeHtml).join('')),
   booking_link: s.map(s.query('.sidebar__register a@href'), (x) => `https://www.gresham.ac.uk${x}`),
 })
 

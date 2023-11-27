@@ -53,12 +53,12 @@ const app = command({
         id: hash(x.link),
         link: x.link,
         title: x.title,
-        summary: x.summary,
         location: x.location,
         host: x.host,
         time_start: x.time_start,
         time_end: x.time_end,
         image: x.image,
+        ...(x.summary_html ? { summary_html: x.summary_html } : { summary: x.summary }),
       }))
 
     const hosts = results.map((y) => ({ id: hash(y.website), website: y.website, name: y.name, twitter: y.twitter }))

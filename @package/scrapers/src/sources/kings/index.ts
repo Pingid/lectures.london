@@ -23,8 +23,8 @@ const lecture = s.query({
         if (!y) return undefined
         return { src: `https://www.kcl.ac.uk${y}` }
       }),
-      summmary: s.map(s.query('.block--article__content', s.html), sanitizeText),
-      summmary_html: s.map(s.query('.block--article__content', s.html), sanitizeHtml),
+      summary: s.map(s.query('.block--event-story__description', s.html), sanitizeText),
+      summary_html: s.map(s.query(['.block--event-story__description p'], s.html), (x) => x.map(sanitizeHtml).join('')),
       booking_link: s.map(s.query('.block--location__details > a@href'), (x) => (isUrl(x) ? x : undefined)),
     }),
   ),

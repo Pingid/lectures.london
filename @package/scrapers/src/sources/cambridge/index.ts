@@ -1,8 +1,7 @@
 import * as s from '@package/shears'
-import xml from 'xml-js'
-import phin from 'phin'
+// @ts-ignore
+import ICAL from 'ical.js'
 
-import { formatDate } from '../../utility'
 import { crawler } from '../../context'
 
 const info = {
@@ -17,20 +16,24 @@ const getHost = () =>
     .then((x) => ({ ...info, description: x.description || '' }))
 
 export const run = crawler(async () => {
-  const rss_url = 'http://webservices.admin.cam.ac.uk/events/api/programmes/11/calendar/categories/12/events.rss'
-  const body = await phin({ method: 'GET', url: rss_url }).then((x) => x.body.toString())
-  const parsed = xml.xml2js(body, { compact: true }) as xml.ElementCompact
+  const webcalender = await fetch(
+    `https://webservices.admin.cam.ac.uk/events/api/programmes/11/calendar/categories/12/events.ics?resultSetSize=20000`,
+  ).then((x) => x.text())
 
+  const lectures = ICAL.parse(webcalender)[2]
+    .map((y: any) => Object.fromEntries(y[1].map((z: any) => [z[0], z[3]])))
+    .map((y: any) => {
+      return {
+        title: y.summary,
+        summary: y.description,
+        location: y.location,
+        time_start: y.dtstart || y.dtstamp,
+        time_end: y.dtend,
+        link: y.url,
+        free: true,
+      }
+    })
   const host = await getHost()
-  const lectures = parsed.rss.channel.item.map((x: any) => ({
-    free: true,
-    link: x.link._text,
-    title: x.title._text.split(' - ')[1],
-    summary: x.description._text,
-    location: x['ev:location']._text,
-    time_start: formatDate(x['ev:startdate']._text),
-    time_end: formatDate(x['ev:enddate']?._text),
-  })) as any[]
 
   return { ...host, lectures }
 })

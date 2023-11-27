@@ -78,16 +78,3 @@
     @apply text-lg;
   }
 }
-
-@layer components {
-  .btn {
-    @apply font-medium border-b-2 border-fg whitespace-nowrap;
-  }
-
-  .text-outline {
-    color: var(--fg-color);
-    -webkit-text-fill-color: var(--bg-color); /* Will override color (regardless of order) */
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: var(--fg-color);
-  }
-}

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "pnpm build --watch",
-    "test:scrapers": "jest src/**/*.test.ts",
+    "test:scrapers": "jest './src/**/*.test.ts'",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"
   },
@@ -18,6 +18,7 @@
     "dayjs": "^1.11.10",
     "domutils": "^3.1.0",
     "htmlparser2": "^9.0.0",
+    "ical.js": "^1.5.0",
     "phin": "^3.7.0",
     "sanitize-html": "^2.11.0",
     "unfluffjs": "^3.3.4",

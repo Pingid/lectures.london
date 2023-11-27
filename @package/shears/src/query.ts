@@ -24,8 +24,8 @@ export const query: {
         [K in keyof Last<T>]: Last<T>[K] extends [string]
           ? string[]
           : Last<T>[K] extends Shear<any, infer I>
-          ? Awaited<I>
-          : string | undefined
+            ? Awaited<I>
+            : string | undefined
       }
     >
   >

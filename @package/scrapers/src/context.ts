@@ -5,8 +5,8 @@ export interface CrawlerContext {}
 type DeepPartial<T> = T extends Record<any, any>
   ? { [P in keyof T]?: DeepPartial<T[P]> }
   : T extends []
-  ? DeepPartial<T[number]>[]
-  : T
+    ? DeepPartial<T[number]>[]
+    : T
 
 export const crawler: {
   (fn: (ctx: CrawlerContext) => Promise<DeepPartial<Entity.Host>>): {

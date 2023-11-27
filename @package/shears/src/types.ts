@@ -17,7 +17,7 @@ export type Last<T extends any[]> = T extends [...any[], infer D] ? D : never
 export type CountArrayDepth<A, B> = A extends []
   ? B
   : A extends [infer H, ...infer R]
-  ? H extends [any]
-    ? CountArrayDepth<R, B[]>
-    : CountArrayDepth<R, B>
-  : never
+    ? H extends [any]
+      ? CountArrayDepth<R, B[]>
+      : CountArrayDepth<R, B>
+    : never

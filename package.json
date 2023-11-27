@@ -21,8 +21,8 @@
   "devDependencies": {
     "@package/scripts": "workspace:^",
     "esbuild": "^0.18.20",
-    "netlify-cli": "^16.5.1",
-    "prettier": "^3.0.3",
+    "netlify-cli": "^16.9.3",
+    "prettier": "^3.1.0",
     "typescript": "5.2.2"
   },
   "prettier": {

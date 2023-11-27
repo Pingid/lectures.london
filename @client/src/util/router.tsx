@@ -126,5 +126,5 @@ const build = (key: string, params: Record<string, string>): string =>
 type PathParams<K, T extends Record<string, string> = {}> = K extends `${string}:${infer D}/${infer R}`
   ? PathParams<R, T & { [K in D]: string }>
   : K extends `${string}:${infer D}`
-  ? T & { [K in D]: string }
-  : T
+    ? T & { [K in D]: string }
+    : T

@@ -30,7 +30,7 @@
     "@types/sanitize-html": "^2.8.1",
     "jest": "^26.1.0",
     "ts-jest": "^26.5.6",
-    "typescript": "5.2.2"
+    "typescript": "5.3.2"
   },
   "jest": {
     "preset": "ts-jest",

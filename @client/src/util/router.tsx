@@ -1,5 +1,6 @@
 import { createEffect, onCleanup, JSX, createMemo, createContext, useContext } from 'solid-js'
 import { createStore } from 'solid-js/store'
+import 'urlpattern-polyfill'
 
 export const createRouter = <T extends Record<string, any>>() => {
   const initial = { url: 'http://server.com', state: {} }
@@ -126,5 +127,5 @@ const build = (key: string, params: Record<string, string>): string =>
 type PathParams<K, T extends Record<string, string> = {}> = K extends `${string}:${infer D}/${infer R}`
   ? PathParams<R, T & { [K in D]: string }>
   : K extends `${string}:${infer D}`
-    ? T & { [K in D]: string }
-    : T
+  ? T & { [K in D]: string }
+  : T

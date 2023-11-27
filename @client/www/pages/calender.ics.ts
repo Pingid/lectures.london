@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import lectures from '../../lectures.json'
 import { config } from '../config'
 
-export const get: APIRoute = async (props) => {
+export const GET: APIRoute = async (props) => {
   return new Response(createCallender(`${props.url.href}`, lectures), {
     status: 200,
     headers: {

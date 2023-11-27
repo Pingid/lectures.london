@@ -2,7 +2,7 @@ import rss, { RSSFeedItem } from '@astrojs/rss'
 import { config } from '../config'
 import dayjs from 'dayjs'
 
-export const get = async () => {
+export const GET = async () => {
   const lectures = await import('../../lectures.json').then((x) => x.default)
 
   const image = (src: string, title: string) => [

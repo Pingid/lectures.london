@@ -11,7 +11,7 @@ export const getStaticPaths = async () => {
   }))
 }
 
-export const get: APIRoute = async (props) => {
+export const GET: APIRoute = async (props) => {
   const lecture = await import('../../../../lectures.json').then((x) =>
     x.default.find((y) => y.id === props.params.lecture),
   )

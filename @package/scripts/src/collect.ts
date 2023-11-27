@@ -36,7 +36,7 @@ const app = command({
         task: () => task.run({}).then((x) => results.push(x)),
         options: { showTimer: true },
       })),
-      { concurrent: true, rendererOptions: { collapse: false, showTimer: true, suffixRetries: true } },
+      { concurrent: true },
     ).run()
 
     const lectures = results

@@ -13,23 +13,23 @@
   },
   "dependencies": {
     "@package/shears": "workspace:^",
-    "@total-typescript/ts-reset": "^0.3.7",
-    "chrono-node": "^2.2.6",
+    "@total-typescript/ts-reset": "^0.5.1",
+    "chrono-node": "^2.7.3",
     "dayjs": "^1.11.10",
-    "domutils": "^3.0.1",
-    "htmlparser2": "^8.0.1",
+    "domutils": "^3.1.0",
+    "htmlparser2": "^9.0.0",
     "phin": "^3.7.0",
-    "sanitize-html": "^2.10.0",
+    "sanitize-html": "^2.11.0",
     "unfluffjs": "^3.3.4",
     "xml-js": "^1.6.11",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.9",
-    "@types/node": "^14.0.27",
-    "@types/sanitize-html": "^2.8.1",
-    "jest": "^26.1.0",
-    "ts-jest": "^26.5.6",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^20.10.0",
+    "@types/sanitize-html": "^2.9.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
     "typescript": "5.3.2"
   },
   "jest": {

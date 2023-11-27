@@ -3,7 +3,12 @@ import { For } from 'solid-js'
 export const Summary = (props: { text: string }) => {
   return (
     <div class="break-words space-y-3 [columns:auto_35ch] [orphans:7] [column-gap:1rem]">
-      <For each={props.text.split('\n').filter(Boolean)}>
+      <For
+        each={props.text
+          .split('\n')
+          .map((x) => x.trim())
+          .filter(Boolean)}
+      >
         {(item) => (
           <p class="text-sm sm:text-base">
             {item}

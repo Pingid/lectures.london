@@ -2,7 +2,8 @@ import { createEffect } from 'solid-js'
 import dayjs from 'dayjs'
 
 import { CalenderIcon, LinkIcon } from './Icons'
-import { Button, ButtonLink } from './Button'
+import { applyParams, slugit } from '../util'
+import { ButtonLink } from './Button'
 import { Summary } from './Summary'
 
 export const LectureCard = (p: { lecture: Lecture }) => {
@@ -42,26 +43,17 @@ export const LectureCard = (p: { lecture: Lecture }) => {
           <ButtonLink icon={<LinkIcon />} rel="noopener noreferrer" target="_blank" href={p.lecture.link}>
             Event link
           </ButtonLink>
-          <div class="group flex">
-            <Button
-              icon={<CalenderIcon class="w-5 h-5" />}
-              tabIndex={0}
-              class="whitespace-nowrap peer group-focus-within:w-0 group-focus-within:opacity-0"
-            >
-              calender
-            </Button>
-            <div class="w-0 opacity-0 group-focus-within:opacity-100 group-focus-within:w-auto flex gap-3 overflow-hidden">
-              <a class="btn" rel="noopener noreferrer" target="_blank" href={`${p.lecture.id}/calender.ics`}>
-                apple
-              </a>
-              <a class="btn" rel="noopener noreferrer" target="_blank" href={`${p.lecture.id}/calender.ics`}>
-                outlook
-              </a>
-              <a class="btn" rel="noopener noreferrer" target="_blank" href={`${p.lecture.id}/calender.ics`}>
-                google
-              </a>
-            </div>
-          </div>
+
+          <ButtonLink
+            icon={<CalenderIcon class="w-5 h-5" />}
+            tabIndex={0}
+            href={applyParams('/:host/:lecture/calender.ics', {
+              host: slugit(p.lecture.host.name),
+              lecture: slugit(p.lecture.title),
+            })}
+          >
+            calender
+          </ButtonLink>
         </div>
         <div class="pt-4 overflow-auto pb-24">
           <Summary text={p.lecture.summary || ''} />

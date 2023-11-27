@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import ical from 'ical-generator'
 import dayjs from 'dayjs'
+
 import { slugit } from '../../../../src/util'
 
 export const getStaticPaths = async () => {
@@ -11,11 +12,8 @@ export const getStaticPaths = async () => {
   }))
 }
 
-export const GET: APIRoute = async (props) => {
-  const lecture = await import('../../../../lectures.json').then((x) =>
-    x.default.find((y) => y.id === props.params.lecture),
-  )
-  if (!lecture) return new Response('Missing lecture', { status: 400 })
+export const GET: APIRoute<Lecture> = async (props) => {
+  const lecture = props.props
   return new Response(createCallender(`${props.url.href}`, [lecture]), {
     status: 200,
     headers: {

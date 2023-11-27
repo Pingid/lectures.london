@@ -1,6 +1,8 @@
 import { createEffect } from 'solid-js'
 import dayjs from 'dayjs'
 
+import { CalenderIcon, LinkIcon } from './Icons'
+import { Button, ButtonLink } from './Button'
 import { Summary } from './Summary'
 
 export const LectureCard = (p: { lecture: Lecture }) => {
@@ -36,17 +38,18 @@ export const LectureCard = (p: { lecture: Lecture }) => {
           </div>
         </div>
 
-        <div class="flex gap-3 mt-5 py-1 justify-between relative">
-          <a class="btn" rel="noopener noreferrer" target="_blank" href={p.lecture.link}>
+        <div class="flex gap-3 mt-5 py-1 justify-between relative border-b border-t">
+          <ButtonLink icon={<LinkIcon />} rel="noopener noreferrer" target="_blank" href={p.lecture.link}>
             Event link
-          </a>
+          </ButtonLink>
           <div class="group flex">
-            <button
-              class="font-medium border-fg whitespace-nowrap peer group-focus-within:w-0 group-focus-within:opacity-0"
+            <Button
+              icon={<CalenderIcon class="w-5 h-5" />}
               tabIndex={0}
+              class="whitespace-nowrap peer group-focus-within:w-0 group-focus-within:opacity-0"
             >
-              calender +
-            </button>
+              calender
+            </Button>
             <div class="w-0 opacity-0 group-focus-within:opacity-100 group-focus-within:w-auto flex gap-3 overflow-hidden">
               <a class="btn" rel="noopener noreferrer" target="_blank" href={`${p.lecture.id}/calender.ics`}>
                 apple

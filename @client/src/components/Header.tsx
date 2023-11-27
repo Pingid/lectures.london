@@ -1,5 +1,7 @@
-import { router } from '../router'
 import { cn } from 'mcn'
+
+import { ArrowLeftIcon } from './Icons'
+import { router } from '../router'
 
 export const Header = () => {
   const [value, update] = router.query('query')
@@ -10,7 +12,7 @@ export const Header = () => {
 
   return (
     <div class="px-2 md:px-3 sticky top-0 z-20 bg-bg [height:var(--header-height)] flex items-end">
-      <div class={cn('py-2 sm:p-2 flex items-end w-full', [!!m(), 'md:border-b', 'border-b'])}>
+      <div class={cn('py-2 sm:p-2 flex items-end w-full border-b')}>
         <a
           class={cn('leading-4 w-min', [!!m(), 'hidden md:block'])}
           {...router.link({ to: '/', params: {}, state: {} })}
@@ -19,7 +21,7 @@ export const Header = () => {
         </a>
         <a
           {...router.link({ to: '/', params: {}, state: {} })}
-          class={cn('font-medium border-b-2 border-fg whitespace-nowrap flex items-center ml-2', [
+          class={cn('border-fg whitespace-nowrap flex items-end gap-2 leading-none', [
             !!m(),
             'block md:hidden',
             'hidden',
@@ -30,19 +32,8 @@ export const Header = () => {
             else api.push('/', {}, {})
           }}
         >
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 512 512"
-            height="1.3rem"
-            width="1.3rem"
-            class="-ml-[8px]"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M320 128L192 256l128 128z"></path>
-          </svg>
-          <span>{shouldGoBack() ? 'back' : 'lectures'}</span>
+          <ArrowLeftIcon class="w-6 h-6 relative top-1.5" />
+          {shouldGoBack() ? 'back' : 'lectures'}
         </a>
         <input
           class={cn('bg-transparent flex-1 px-3 focus:outline-none text-base relative top-1', [

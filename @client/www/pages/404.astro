@@ -1,8 +1,10 @@
 ---
 import { MetaGlobal } from '@client/src/components/Meta'
+import { Page404 } from '@client/src/components/404';
 import Scripts from '../layout/Scripts.astro'
 import { config } from '../config'
 import '../../src/css/index.css'
+
 ---
 
 <!DOCTYPE html>
@@ -28,26 +30,7 @@ import '../../src/css/index.css'
     <meta name="keywords" content={[...config.keywords].join(',')} />
   </head>
   <body>
-    <div class="w-full h-[100dvh] flex items-center justify-center">
-      <div class="flex flex-col items-center space-y-2">
-        <h1>404</h1>
-        <h2>Page no longer exists</h2>
-        <a href="/" class="font-medium border-b-2 border-fg whitespace-nowrap flex items-center"
-          ><svg
-            stroke="currentColor"
-            fill="currentColor"
-            stroke-width="0"
-            viewBox="0 0 512 512"
-            height="1.3rem"
-            width="1.3rem"
-            class="-ml-2"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M320 128L192 256l128 128z"></path>
-          </svg> Go Home</a
-        >
-      </div>
-    </div>
+    <Page404 />
     <Scripts />
   </body>
 </html>

@@ -47,17 +47,18 @@ export const goto: GoTo = (source, selector, options) => {
 
       let url = _url
 
-      if (/^\//.test(url) && ctx?.origin) url = `${ctx.origin}${url}`
+      if (url.startsWith('/') && ctx?.origin) url = `${ctx.origin}${url}`
 
       if (!isUrl(url)) {
         if (!ctx?.data) throw new Error(`${url} is not a valid URL`)
         const result = await query(url)(ctx)
         if (!result && page.acc > 0 && !options?.paginate?.failOnMissing) return []
         if (!result) {
-          throw new Error(`Did find a result for ${url}${options?.paginate ? ` on paginate: ${page.acc}` : ''}`)
+          const iteration = options?.paginate ? ` on paginate: ${page.acc}` : ''
+          throw new Error(`Did find a result for ${url}${iteration}`)
         }
         if (isUrl(result)) url = result
-        if (/^\//.test(result.trim()) && ctx.origin) url = `${ctx.origin}${result.trim()}`
+        if (result.trim().startsWith('/') && ctx.origin) url = `${ctx.origin}${result.trim()}`
         if (!isUrl(url)) throw new Error(`Found invalid url ${result} for ${url}`)
       }
 

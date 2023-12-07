@@ -6,7 +6,7 @@ export const Summary = (props: { lecture: Lecture }) => {
   if (props.lecture.summary_html?.trim()) {
     return (
       <div class={cls}>
-        <div class="prose" innerHTML={props.lecture.summary_html} />
+        <div class="prose dark:prose-invert" innerHTML={props.lecture.summary_html} />
       </div>
     )
   }
@@ -14,7 +14,7 @@ export const Summary = (props: { lecture: Lecture }) => {
   if (props.lecture.summary?.trim()) {
     return (
       <div class={cls}>
-        <div class="prose">
+        <div class="prose dark:prose-invert">
           <For
             each={props.lecture.summary
               .split('\n')

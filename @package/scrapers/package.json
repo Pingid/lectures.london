@@ -20,7 +20,7 @@
     "htmlparser2": "^9.0.0",
     "ical.js": "^1.5.0",
     "phin": "^3.7.0",
-    "sanitize-html": "^2.11.0",
+    "sanitize-html": "^2.12.1",
     "unfluffjs": "^3.3.4",
     "xml-js": "^1.6.11",
     "zod": "^3.22.4"

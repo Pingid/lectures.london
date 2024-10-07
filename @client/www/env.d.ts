@@ -1,3 +1,4 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="urlpattern-polyfill" />
 /// <reference types="astro/client" />
 

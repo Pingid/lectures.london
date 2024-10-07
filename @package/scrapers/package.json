@@ -18,14 +18,14 @@
     "dayjs": "^1.11.13",
     "domutils": "^3.1.0",
     "htmlparser2": "^9.0.0",
-    "ical.js": "^1.5.0",
+    "ical.js": "^2.1.0",
     "sanitize-html": "^2.13.1",
     "unfluffjs": "^3.3.4",
     "xml-js": "^1.6.11",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
+    "@types/node": "^22.7.4",
     "@types/sanitize-html": "^2.13.0",
     "esbuild": "^0.24.0",
     "typescript": "5.6.2",

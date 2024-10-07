@@ -13,22 +13,22 @@
   },
   "dependencies": {
     "@package/shears": "workspace:^",
-    "@total-typescript/ts-reset": "^0.5.1",
-    "chrono-node": "^2.7.3",
-    "dayjs": "^1.11.10",
+    "@total-typescript/ts-reset": "^0.6.1",
+    "chrono-node": "^2.7.7",
+    "dayjs": "^1.11.13",
     "domutils": "^3.1.0",
     "htmlparser2": "^9.0.0",
     "ical.js": "^1.5.0",
-    "sanitize-html": "^2.11.0",
+    "sanitize-html": "^2.13.1",
     "unfluffjs": "^3.3.4",
     "xml-js": "^1.6.11",
-    "zod": "^3.22.4"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
-    "@types/sanitize-html": "^2.9.5",
-    "esbuild": "^0.19.8",
-    "typescript": "5.3.2",
+    "@types/sanitize-html": "^2.13.0",
+    "esbuild": "^0.24.0",
+    "typescript": "5.6.2",
     "vitest": "^2.1.2"
   }
 }

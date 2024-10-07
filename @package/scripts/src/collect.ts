@@ -31,9 +31,16 @@ const app = command({
     await new Listr(
       Object.entries(sources).map(([title, task]) => ({
         title,
-        retry: 3,
+        retry: 5,
         exitOnError: false,
-        task: () => task.run({}).then((x) => results.push(x)),
+        task: () =>
+          task
+            .run({})
+            .then((x) => results.push(x))
+            .catch((e) => {
+              console.error(e)
+              return Promise.reject(e)
+            }),
         options: { showTimer: true },
       })),
       { concurrent: true },

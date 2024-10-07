@@ -60,5 +60,3 @@ export const run = crawler(async () => {
     lectures: result.map((x) => (x?.merge.times || []).map((y) => ({ ...x, ...x?.merge, free: true, ...y }))).flat(),
   }
 })
-
-run.debug = true

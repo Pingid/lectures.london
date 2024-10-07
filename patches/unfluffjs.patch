@@ -1,0 +1,13 @@
+diff --git a/lib/unfluff.js b/lib/unfluff.js
+index 219014ef9d9b872bbda6fcc5df9fa797246da966..6bdb88549ede9a25ad5cc5c1ff0d8075c4083e7c 100644
+--- a/lib/unfluff.js
++++ b/lib/unfluff.js
+@@ -14,7 +14,7 @@ const extractor_1 = __importDefault(require("./extractor"));
+ const cleaner_1 = __importDefault(require("./cleaner"));
+ function unfluff(html, language) {
+     var _a;
+-    const doc = cheerio_1.default.load(html);
++    const doc = cheerio_1.load(html);
+     const lng = (_a = language !== null && language !== void 0 ? language : extractor_1.default.lang(doc)) !== null && _a !== void 0 ? _a : 'en';
+     const pageData = {
+         title: extractor_1.default.title(doc),

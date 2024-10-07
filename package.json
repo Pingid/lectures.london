@@ -20,15 +20,20 @@
   },
   "devDependencies": {
     "@package/scripts": "workspace:^",
-    "esbuild": "^0.19.8",
-    "netlify-cli": "^16.9.3",
+    "esbuild": "^0.24.0",
+    "netlify-cli": "^17.36.4",
     "prettier": "^3.1.0",
-    "typescript": "5.3.2"
+    "typescript": "5.6.2"
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
     "printWidth": 120,
     "trailingComma": "all"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "unfluffjs": "patches/unfluffjs.patch"
+    }
   }
 }

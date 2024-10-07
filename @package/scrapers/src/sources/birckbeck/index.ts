@@ -44,5 +44,3 @@ export const run = crawler(() =>
     return { ...(await getHost()), lectures }
   }),
 )
-
-// run.debug = true

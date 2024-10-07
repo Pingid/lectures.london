@@ -8,6 +8,7 @@ on:
     paths:
       - .github/workflows/deploy.yml
       - '@client/**'
+      - '@package/**'
     branches:
       - main
 

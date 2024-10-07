@@ -1,5 +1,4 @@
 import * as s from '@package/shears'
-import phin from 'phin'
 
 import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
@@ -20,10 +19,10 @@ const getHost = () =>
     .then((x) => ({ ...info, description: x.description || '' }))
 
 export const run = crawler(async () => {
-  const events = await phin({ url, parse: 'json' }).then((x) => (x.body as any).data)
+  const response = await fetch(url)
+  const json = (await response.json()) as { data: any[] }
   const host = await getHost()
-
-  const lectures = events.map((y: any) => {
+  const lectures = json.data.map((y: any) => {
     return {
       link: `https://www.soas.ac.uk${y.attributes.path.alias}`,
       title: y.attributes.title,

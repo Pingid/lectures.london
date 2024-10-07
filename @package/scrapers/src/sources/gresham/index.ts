@@ -1,5 +1,4 @@
 import * as s from '@package/shears'
-import phin from 'phin'
 
 import { formatDate, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
@@ -28,15 +27,15 @@ const getHost = () =>
     .then((x) => ({ ...info, description: x.description || '' }))
 
 export const run = crawler(async () => {
-  const events = await phin<any>({ url: whatsOnUrl, parse: 'json' }).then(
-    (x) =>
-      x.body.events.map((y: any) => ({
-        title: y.title,
-        link: `https://www.gresham.ac.uk${y.link}`,
-        time_start: formatDate(y.calculated_start_date),
-        time_end: formatDate(y.calculated_end_date),
-      })) as { title: string; link: string; time_start: string; time_end: string }[],
-  )
+  const result = await fetch(whatsOnUrl)
+  const json = (await result.json()) as { events: any[] }
+
+  const events = json.events.map((y: any) => ({
+    title: y.title,
+    link: `https://www.gresham.ac.uk${y.link}`,
+    time_start: formatDate(y.calculated_start_date),
+    time_end: formatDate(y.calculated_end_date),
+  })) as { title: string; link: string; time_start: string; time_end: string }[]
 
   const lectures = await Promise.all(
     events.map((x) =>

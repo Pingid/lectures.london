@@ -1,5 +1,3 @@
-import phin from 'phin'
-
 import { sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 
@@ -10,14 +8,14 @@ const info = {
 }
 
 export const run = crawler(async () => {
-  const result = await phin<any[]>({
-    url: 'https://www.aaschool.ac.uk/eventslisting.json?gettypefilter=quicklinkupcoming&gettopicfilter=1&getsearchfilter=&urlseries=0',
-    parse: 'json',
-  })
+  const result = await fetch(
+    'https://www.aaschool.ac.uk/eventslisting.json?gettypefilter=quicklinkupcoming&gettopicfilter=1&getsearchfilter=&urlseries=0',
+  )
+  const json = (await result.json()) as { data: any[] }
 
   return {
     ...info,
-    lectures: result.body.map((x) => ({
+    lectures: json.data.map((x) => ({
       link: `https://www.aaschool.ac.uk/publicprogramme/${x.slug}`,
       title: x.title,
       summary: sanitizeText(x.description),

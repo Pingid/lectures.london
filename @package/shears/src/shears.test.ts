@@ -1,4 +1,6 @@
 import { parseDocument } from 'htmlparser2'
+import { it, expect } from 'vitest'
+
 import { query } from './query'
 import { goto } from './goto'
 
@@ -47,8 +49,6 @@ it('should select object on all', async () => {
   </div>`
   expect(await query(['div div'], { a: 'p' })(c)).toEqual([{ a: 'foo' }, { a: 'bar' }])
 })
-
-jest.setTimeout(60000)
 
 it('should handle goto url', async () => {
   const url = 'http://foo.com'

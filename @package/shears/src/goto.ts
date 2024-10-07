@@ -1,6 +1,5 @@
 import { parseDocument } from 'htmlparser2'
 import * as is from 'typeofit'
-import phin from 'phin'
 
 import { Parsed, Shear, Context } from './types'
 import { Query, query } from './query'
@@ -39,11 +38,9 @@ export const goto: GoTo = (source, selector, options) => {
         ctx?.driver ||
         options?.driver ||
         ((url, ctx) =>
-          phin({ url, followRedirects: true }).then((x) => ({
-            ...ctx,
-            origin: new URL(url).origin,
-            data: x.body.toString(),
-          })))
+          fetch(url)
+            .then((x) => x.text())
+            .then((x) => ({ ...ctx, origin: new URL(url).origin, data: x })))
 
       let url = _url
 

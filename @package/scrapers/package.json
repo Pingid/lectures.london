@@ -19,7 +19,6 @@
     "domutils": "^3.1.0",
     "htmlparser2": "^9.0.0",
     "ical.js": "^1.5.0",
-    "phin": "^3.7.0",
     "sanitize-html": "^2.11.0",
     "unfluffjs": "^3.3.4",
     "xml-js": "^1.6.11",

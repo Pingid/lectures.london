@@ -105,9 +105,6 @@ importers:
       ical.js:
         specifier: ^1.5.0
         version: 1.5.0
-      phin:
-        specifier: ^3.7.0
-        version: 3.7.0
       sanitize-html:
         specifier: ^2.11.0
         version: 2.11.0
@@ -191,9 +188,6 @@ importers:
       htmlparser2:
         specifier: ^9.0.0
         version: 9.0.0
-      phin:
-        specifier: ^3.7.0
-        version: 3.7.0
       typeofit:
         specifier: ^0.0.5
         version: 0.0.5
@@ -2549,9 +2543,6 @@ packages:
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
-
-  centra@2.6.0:
-    resolution: {integrity: sha512-dgh+YleemrT8u85QL11Z6tYhegAs3MMxsaWAq/oXeAmYJ7VxL3SI9TZtnfaEvNDMAPolj25FXIb3S+HCI4wQaQ==}
 
   chai@5.1.1:
     resolution: {integrity: sha512-pT1ZgP8rPNqUgieVaEY+ryQr6Q4HXNg8Ei9UnLUrjN4IA7dvQC5JB+/kxVcPNDHyBcc/26CXPkbNzq3qwrOEKA==}
@@ -5234,11 +5225,6 @@ packages:
 
   pend@1.2.0:
     resolution: {integrity: sha512-F3asv42UuXchdzt+xXqfW1OGlVBe+mxa2mqI0pg5yAHZPvFmY3Y6drSf/GQ1A86WgWEN9Kzh/WrgKa6iGcHXLg==}
-
-  phin@3.7.0:
-    resolution: {integrity: sha512-DqnVNrpYhKGBZppNKprD+UJylMeEKOZxHgPB+ZP6mGzf3uA2uox4Ep9tUm+rUc8WLIdHT3HcAE4X8fhwQA9JKg==}
-    engines: {node: '>= 8'}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
@@ -9347,8 +9333,6 @@ snapshots:
 
   ccount@2.0.1: {}
 
-  centra@2.6.0: {}
-
   chai@5.1.1:
     dependencies:
       assertion-error: 2.0.1
@@ -12508,10 +12492,6 @@ snapshots:
   peek-readable@5.0.0: {}
 
   pend@1.2.0: {}
-
-  phin@3.7.0:
-    dependencies:
-      centra: 2.6.0
 
   picocolors@1.0.0: {}
 

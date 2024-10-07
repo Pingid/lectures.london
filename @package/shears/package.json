@@ -17,7 +17,6 @@
     "domhandler": "^5.0.3",
     "domutils": "^3.1.0",
     "htmlparser2": "^9.0.0",
-    "phin": "^3.7.0",
     "typeofit": "^0.0.5"
   },
   "devDependencies": {

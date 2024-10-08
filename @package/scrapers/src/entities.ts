@@ -23,6 +23,7 @@ export type Lecture = t.TypeOf<typeof Lecture>
 export const Host = t.object({
   name: t.string(),
   website: t.string(),
+  icon: t.string().optional(),
   twitter: t.string().optional(),
   threads: t.string().optional(),
   description: t.string().optional(),

@@ -29,7 +29,7 @@ const app = command({
     const data = await fs.promises
       .readFile(lectures, 'utf-8')
       .then((x) => JSON.parse(x))
-      .then((x) => z.array(LectureSchema).parseAsync(x))
+      .then((x) => (x as unknown[]).filter((y): y is LectureSchema => LectureSchema.safeParse(y).success))
       .then((x) =>
         x.filter(
           (y) =>
@@ -55,6 +55,7 @@ const LectureSchema = z.object({
   time_start: z.string(),
   host: z.object({ name: z.string(), twitter: z.string() }),
 })
+type LectureSchema = z.infer<typeof LectureSchema>
 
 const TwitSchema = z.object({
   appKey: z.string(),

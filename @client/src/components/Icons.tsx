@@ -55,11 +55,21 @@ export const GoogleIcon = (props: JSX.IntrinsicElements['svg']) => (
 )
 
 export const TwitterIcon = (props: JSX.IntrinsicElements['svg']) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1rem" height="1rem" fill="currentColor" {...props}>
+  <svg
+    stroke="currentColor"
+    fill="currentColor"
+    stroke-width="0"
+    viewBox="0 0 24 24"
+    height="200px"
+    width="200px"
+    xmlns="http://www.w3.org/2000/svg"
+    style="pointer-events: auto;"
+    {...props}
+  >
     <path
-      fill="currentColor"
-      d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584l-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-    />
+      d="M18.2048 2.25H21.5128L14.2858 10.51L22.7878 21.75H16.1308L10.9168 14.933L4.95084 21.75H1.64084L9.37084 12.915L1.21484 2.25H8.04084L12.7538 8.481L18.2048 2.25ZM17.0438 19.77H18.8768L7.04484 4.126H5.07784L17.0438 19.77Z"
+      style="pointer-events: auto;"
+    ></path>
   </svg>
 )
 

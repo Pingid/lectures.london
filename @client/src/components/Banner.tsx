@@ -1,4 +1,4 @@
-import { CalenderIcon, GithubIcon } from './Icons'
+import { CalenderIcon, GithubIcon, TwitterIcon } from './Icons'
 import { ButtonLink } from './Button'
 
 export const Banner = () => {
@@ -13,6 +13,11 @@ export const Banner = () => {
           <ButtonLink icon={<GithubIcon />} href="https://github.com/Pingid/lectures.london" target="_blank">
             Github
           </ButtonLink>
+          <ButtonLink
+            icon={<TwitterIcon class="w-4 h-4" />}
+            href="https://x.com/lectures_london"
+            target="_blank"
+          ></ButtonLink>
         </div>
       </div>
     </div>

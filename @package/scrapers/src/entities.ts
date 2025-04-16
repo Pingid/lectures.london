@@ -22,12 +22,13 @@ export type Lecture = t.TypeOf<typeof Lecture>
 // Hosts
 export const Host = t.object({
   name: t.string(),
-  website: t.string(),
   icon: t.string().optional(),
-  twitter: t.string().optional(),
-  threads: t.string().optional(),
+  website: t.string(),
   description: t.string().optional(),
   lectures: t.array(Lecture),
+  twitter: t.string().optional(),
+  threads: t.string().optional(),
+  bluesky: t.string().optional(),
 })
 
 export type Host = t.TypeOf<typeof Host>

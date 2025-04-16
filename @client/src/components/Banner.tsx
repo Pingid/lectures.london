@@ -1,4 +1,4 @@
-import { CalenderIcon, GithubIcon, TwitterIcon } from './Icons'
+import { BlueskyIcon, CalenderIcon, GithubIcon, TwitterIcon } from './Icons'
 import { ButtonLink } from './Button'
 
 export const Banner = () => {
@@ -16,6 +16,11 @@ export const Banner = () => {
           <ButtonLink
             icon={<TwitterIcon class="w-4 h-4" />}
             href="https://x.com/lectures_london"
+            target="_blank"
+          ></ButtonLink>
+          <ButtonLink
+            icon={<BlueskyIcon />}
+            href="https://bsky.app/profile/lectureslondon.bsky.social"
             target="_blank"
           ></ButtonLink>
         </div>

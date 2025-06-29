@@ -37,7 +37,7 @@ const getLectures = (): Promise<Partial<Lecture>[]> =>
     .goto(url, s.query(['h3 a'], lecture))()
     .then((events: any[]) => {
       const processedEvents = events
-        .filter((event: any) => event.title && event.link) // Ensure we have minimum required data
+        .filter((event: any) => event.title && event.link)
         .map((event: any) => {
           let time_start: string | undefined;
           let time_end: string | undefined;

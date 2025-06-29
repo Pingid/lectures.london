@@ -22,13 +22,10 @@ export const run = crawler(async () => {
       throw new Error('Invalid data structure in __NEXT_DATA__')
     }
 
-    // Filter for discussion-type events and events that have meaningful content
     const eventResults = data.props.pageProps.events.results.filter((event: any) => {
-      // Check if it's a discussion, session, or performance (lecture-like events)
       const isRelevantFormat = event.format?.label &&
         ['Discussion', 'Session', 'Performance'].includes(event.format.label)
 
-      // Also include events that have series or are educational in nature
       const hasEducationalSeries = event.series && event.series.length > 0
 
       return isRelevantFormat || hasEducationalSeries
@@ -37,11 +34,9 @@ export const run = crawler(async () => {
     const lectures = await Promise.all(
       eventResults.map(async (event: any): Promise<Lecture> => {
         try {
-          // Extract basic event information
           const eventId = event.id || event.uid
           const link = `${info.website}/events/${eventId}`
 
-          // Handle times - get the first available time slot
           const firstTime = event.times?.[0]
           if (!firstTime) {
             throw new Error(`No time information for event ${eventId}`)
@@ -50,22 +45,19 @@ export const run = crawler(async () => {
           const time_start = firstTime.startDateTime
           const time_end = firstTime.endDateTime
 
-          // Handle image
+          
           let image: { src: string } | undefined
           if (event.image?.url) {
-            // Use the 16:9 format if available, otherwise use the main URL
             image = {
               src: event.image['16:9']?.url || event.image.url
             }
           }
 
-          // Handle location
           let location: string | undefined
           if (event.locations?.places?.[0]?.label) {
             location = event.locations.places[0].label
           }
 
-          // Fetch detailed content from the event page
           let summary: string | undefined
           let summary_html: string | undefined
 
@@ -80,13 +72,12 @@ export const run = crawler(async () => {
             }
           } catch (error) {
             console.warn(`Could not fetch detailed content for event ${eventId}:`, error)
-            // Use basic title as fallback summary
             summary = event.title
           }
 
           return {
             title: event.title,
-            free: true, // Wellcome Collection events are typically free
+            free: true,
             location,
             link,
             image,

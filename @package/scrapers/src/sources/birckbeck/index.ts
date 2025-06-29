@@ -1,46 +1,88 @@
 import * as s from '@package/shears'
-import unfluff from 'unfluffjs'
 
+import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
 import { crawler } from '../../context'
 import { Lecture } from '../../entities'
 
 const info = {
-  name: 'Birkbeck',
-  website: 'http://www.bbk.ac.uk',
+  name: 'Birkbeck, University of London',
+  website: 'https://www.bbk.ac.uk',
   twitter: '@BirkbeckUoL',
 }
 
-const lecture = s.query(['[data-equalizer-watch]'], {
-  link: 'a@href',
-  title: 'h3',
-  time_start: 'p > time@datetime',
-  time_end: 'p > time:nth-child(3)@datetime',
-  location: s.map(s.query('p:nth-child(2)'), (x) => x?.trim()?.split('\n')?.[0]),
-  merge: s.goto(
-    'a@href',
-    s.query({
-      booking_link: '#remote-event a@href',
-      summary: s.map(s.query(s.html), (x) => (x ? unfluff(x).text : undefined)),
-    }),
-  ),
-})
+const getLectures = async (): Promise<Partial<Lecture>[]> => {
+  try {
+    const eventCards = await s
+      .goto('https://www.bbk.ac.uk/events?tag=34', s.query(['a[href*="events/event"]'], {
+        link: '@href',
+        title: 'h3',
+      }))();
 
-const getLectures = (from: number = 0, max: number = 0): Promise<Partial<Lecture>[]> =>
-  s
-    .goto(`https://www.bbk.ac.uk/events/?tag=34${from ? `&b_start:int=${from}` : ''}`, lecture)()
-    .then((x) => x.map((y) => ({ ...y, ...y.merge, free: true })))
-    .then((x) => {
-      if (x.length > 0 && max > 0) return getLectures(from + x.length, max - 1).then((y) => [...x, ...y])
-      return x
-    })
+    const events = await Promise.all(
+      eventCards.map((card: any) =>
+        s.goto(
+          `https://www.bbk.ac.uk/${card.link}`,
+          s.query({
+            title: () => Promise.resolve(card.title),
+            link: () => Promise.resolve(`https://www.bbk.ac.uk/${card.link}`),
+            summary: s.map(s.query('main p', s.html), sanitizeText),
+            summary_html: s.map(s.query('main p', s.html), sanitizeHtml),
+            booking_link: s.map(s.query('a[href*="book"], a[href*="register"], a[href*="eventbrite"]@href'), (x) => x),
+            time_detail: s.map(s.query('time, [class*="time"], [class*="date"]'), (x) => x?.trim()),
+            location: s.map(s.query('[class*="venue"], [class*="location"], [class*="address"]'), (x) => x?.trim()),
+          }),
+        )(),
+      ),
+    );
+
+    const processedEvents = events
+      .filter((event: any) => event.title && event.link)
+      .map((event: any) => {
+        let time_start: string | undefined;
+        let time_end: string | undefined;
+
+        const timeText = event.time_detail;
+        if (timeText) {
+          try {
+            const parsed = parseStartEnd(timeText);
+            time_start = parsed.time_start;
+            time_end = parsed.time_end;
+          } catch (error) {
+            console.warn(`Could not parse time for event: ${event.title}`, error);
+          }
+        }
+
+        return {
+          title: event.title,
+          link: event.link,
+          time_start,
+          time_end,
+          location: event.location,
+          summary: event.summary,
+          summary_html: event.summary_html,
+          link_booking: event.booking_link,
+          free: true,
+        };
+      });
+
+    return processedEvents;
+  } catch (error) {
+    return [];
+  }
+};
 
 const getHost = () =>
   s
     .goto(info.website, s.query({ description: 'meta[name="description"]@content' }))()
     .then((x) => ({ ...info, description: x.description || '' }))
+    .catch(() => ({ ...info, description: '' }));
 
-export const run = crawler(() =>
-  getLectures(0, 10).then(async (lectures) => {
-    return { ...(await getHost()), lectures }
-  }),
-)
+export const run = crawler(async () => {
+  try {
+    const lectures = await getLectures();
+    const host = await getHost();
+    return { ...host, lectures };
+  } catch (error) {
+    throw error;
+  }
+});

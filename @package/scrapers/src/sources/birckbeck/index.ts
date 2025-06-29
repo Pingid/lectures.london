@@ -10,6 +10,32 @@ const info = {
   twitter: '@BirkbeckUoL',
 }
 
+// Helper function to extract location from venue text
+const extractVenueLocation = (text?: string): string | undefined => {
+  if (!text) return undefined
+
+  const venueMatch = text.match(/Venue:\s*(.+?)(?:\n|$)/i)
+  if (venueMatch && venueMatch[1]) {
+    return venueMatch[1].trim()
+  }
+
+  return undefined
+}
+
+const extractBirkbeckSummary = (text?: string): string | undefined => {
+  if (!text) return undefined
+
+  const summaryMatch = text.match(/Book your place[\s\S]*?\n([\s\S]*?)(?=Tags:|$)/i)
+  if (summaryMatch && summaryMatch[1]) {
+    return summaryMatch[1]
+      .replace(/Contact name:[\s\S]*$/i, '') // Remove contact info
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim()
+  }
+
+  return undefined
+}
+
 const getLectures = async (): Promise<Partial<Lecture>[]> => {
   try {
     const eventCards = await s
@@ -25,11 +51,11 @@ const getLectures = async (): Promise<Partial<Lecture>[]> => {
           s.query({
             title: () => Promise.resolve(card.title),
             link: () => Promise.resolve(`https://www.bbk.ac.uk/${card.link}`),
-            summary: s.map(s.query('main p', s.html), sanitizeText),
-            summary_html: s.map(s.query('main p', s.html), sanitizeHtml),
+            summary: s.map(s.query('div.row.column.max-medium', s.html), sanitizeText),
+            summary_html: s.map(s.query('div.row.column.max-medium', s.html), sanitizeHtml),
             booking_link: s.map(s.query('a[href*="book"], a[href*="register"], a[href*="eventbrite"]@href'), (x) => x),
-            time_detail: s.map(s.query('time, [class*="time"], [class*="date"]'), (x) => x?.trim()),
-            location: s.map(s.query('[class*="venue"], [class*="location"], [class*="address"]'), (x) => x?.trim()),
+            time_detail: s.map(s.query('time, [class*="time"], [class*="date"], .event-date, .event-time'), (x) => x?.trim()),
+            venue_text: s.map(s.query('div.row.column.max-medium', s.html), sanitizeText),
           }),
         )(),
       ),
@@ -57,11 +83,11 @@ const getLectures = async (): Promise<Partial<Lecture>[]> => {
           link: event.link,
           time_start,
           time_end,
-          location: event.location,
-          summary: event.summary,
+          location: extractVenueLocation(event.venue_text),
+          summary: extractBirkbeckSummary(event.venue_text),
           summary_html: event.summary_html,
           link_booking: event.booking_link,
-          free: true,
+          free: true
         };
       });
 

@@ -12,6 +12,30 @@ const info = {
 
 const url = 'https://www.kcl.ac.uk/events/events-calendar?type=cb7cba1a-7738-43c6-a9f0-5856b5c0f03d'
 
+// Helper function to extract location from div.block--location__details
+const extractLocation = (locationText?: string): string | undefined => {
+  if (!locationText) return undefined
+  let cleaned = locationText
+    .replace(/\s+/g, ' ')
+    .trim()
+
+  cleaned = cleaned
+    .replace(/Room:/g, '\nRoom:')
+    .replace(/\(\s*IoPPN\)/g, '(IoPPN)')
+    .replace(/(Room:\s*[^,\n]+),?\s*IoPPN/g, '$1\nIoPPN')
+    .replace(/(Theatre|Hall|Centre)IoPPN/g, '$1\nIoPPN')
+    .replace(/(Room:\s*[A-Z0-9.()]+)([A-Z][a-z]+\s+[A-Z])/g, '$1\n$2')
+    .replace(/(Room:\s*[^,\n]+),?\s*([A-Z][a-z]+\s+[Cc]ampus)/g, '$1\n$2')
+    .replace(/(House|Museum|Building|Theatre|Hall|Centre)\s*([A-Z][a-z]+\s+[Cc]ampus)/g, '$1\n$2')
+    .replace(/([A-Z0-9)]+)\s*([A-Z][a-z]+\s+[Cc]ampus)/g, '$1\n$2')
+
+  return cleaned
+    .replace(/\n\s+/g, '\n')
+    .trim()
+}
+
+
+
 const lecture = s.query({
   link: s.map(s.query('@href'), (x) => (x ? `https://www.kcl.ac.uk${x}` : undefined)),
   title: s.query(''),
@@ -23,11 +47,11 @@ const lecture = s.query({
         if (typeof y === 'string' && y.startsWith('http')) return { src: y }
         return { src: `https://www.kcl.ac.uk${y}` }
       }),
-      summary: s.map(s.query('main p', s.html), sanitizeText),
-      summary_html: s.map(s.query('main p', s.html), sanitizeHtml),
+      summary: s.map(s.query('div.composer-container', s.html), sanitizeText),
+      summary_html: s.map(s.query('div.composer-container', s.html), sanitizeHtml),
       booking_link: s.map(s.query('a[href*="eventbrite"]@href, a[href*="register"]@href, a[href*="booking"]@href'), (x) => (isUrl(x) ? x : undefined)),
-      location: s.map(s.query('[class*="venue"], [class*="location"], [class*="address"]'), (x) => x?.trim()),
-      time_detail: s.map(s.query('time, [class*="time"], [class*="date"]'), (x) => x?.trim()),
+      location_text: s.map(s.query('div.block--location__details', s.html), sanitizeText),
+      time_detail: s.map(s.query('time, [class*="time"], [class*="date"], .event-date, .event-time'), (x) => x?.trim()),
     }),
   ),
 })
@@ -58,7 +82,7 @@ const getLectures = (): Promise<Partial<Lecture>[]> =>
             link: event.link,
             time_start,
             time_end,
-            location: event.page?.location,
+            location: extractLocation(event.page?.location_text),
             image: event.page?.image,
             summary: event.page?.summary,
             summary_html: event.page?.summary_html,

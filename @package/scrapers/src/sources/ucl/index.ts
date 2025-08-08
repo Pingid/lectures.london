@@ -26,12 +26,12 @@ const fetch_lectures = async (): Promise<Lecture[]> => {
       free: true,
       title: x.title,
       link: x.displayUrl,
-      image: x.metaData.I,
+      image: x.metaData.I ? { src: x.metaData.I } : undefined,
       summary: x.summary,
       link_booking: x.listMetadata?.UclEventBookingLink?.[0],
       location,
-      time_start: x.metaData.UCLEventStartDate,
-      time_end: x.metaData.UCLEventEndDate,
+      time_start: x.metaData.UclEventStartDate,
+      time_end: x.metaData.UclEventEndDate,
     }
   })
 }

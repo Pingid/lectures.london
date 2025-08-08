@@ -72,4 +72,5 @@ jobs:
           NETLIFY_DEPLOY_MESSAGE: 'Actions deploy ${{ github.ref_name }}'
           NETLIFY_DEPLOY_TO_PROD: true
           DEBUG: '*'
-        run: pnpm netlify deploy --dir='./@client/build/client' --functions='./@client/build/functions' --message='Actions deploy ${{ github.ref_name }}' --prod --filter @lectures.london/client
+        run: pnpm netlify deploy --no-build --dir='./@client/build/client' --functions='./@client/build/functions' --message='Actions deploy ${{ github.ref_name }}' --prod --filter @lectures.london/client
+

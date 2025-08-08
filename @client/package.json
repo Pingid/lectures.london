@@ -12,12 +12,12 @@
     "collect": "pnpm script-collect -l lectures.json --hosts hosts.json"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.7",
-    "@astrojs/sitemap": "^3.2.0",
-    "@astrojs/solid-js": "^4.4.2",
-    "@astrojs/tailwind": "^5.1.1",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.4.2",
+    "@astrojs/solid-js": "^5.1.0",
+    "@astrojs/tailwind": "^6.0.2",
     "@solidjs/meta": "^0.29.4",
-    "astro": "^4.15.12",
+    "astro": "^5.12.8",
     "dayjs": "^1.11.13",
     "fuse.js": "^7.0.0",
     "ical-generator": "^8.0.0",
@@ -28,9 +28,9 @@
   },
   "devDependencies": {
     "@package/scripts": "workspace:^",
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/typography": "^0.5.16",
     "env-cmd": "^10.1.0",
-    "esbuild": "^0.24.0",
-    "typescript": "5.6.2"
+    "esbuild": "^0.25.8",
+    "typescript": "5.9.2"
   }
 }

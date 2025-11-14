@@ -8,10 +8,10 @@ export const Banner = () => {
         <p class="max-w-sm">Find free to attend lectures from leading universities and institutions around London</p>
         <div class="w-full flex flex-wrap gap-3 pb-2">
           <ButtonLink icon={<CalenderIcon />} rel="noopener noreferrer" target="_blank" href="/calender.ics">
-            Calender
+            Calendar
           </ButtonLink>
           <ButtonLink icon={<GithubIcon />} href="https://github.com/Pingid/lectures.london" target="_blank">
-            Github
+            GitHub
           </ButtonLink>
           <ButtonLink
             icon={<TwitterIcon class="w-4 h-4" />}

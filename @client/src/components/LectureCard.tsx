@@ -52,7 +52,7 @@ export const LectureCard = (p: { lecture: Lecture }) => {
               lecture: slugit(p.lecture.title),
             })}
           >
-            calender
+            Calendar
           </ButtonLink>
         </div>
         <div class="overflow-auto pb-24">

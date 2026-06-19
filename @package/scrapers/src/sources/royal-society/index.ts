@@ -1,6 +1,6 @@
-import { fetchDom, parseStartEnd, sanitizeHtml } from '../../utility'
-import { Host, Lecture } from '../../entities'
-import { crawler } from '../../context'
+import { fetchDom, parseStartEnd, sanitizeHtml } from '../../utility/index.js'
+import { Host, Lecture } from '../../entities.js'
+import { crawler } from '../../context.js'
 
 const info: Omit<Host, 'lectures'> = {
   name: 'The Royal Society',

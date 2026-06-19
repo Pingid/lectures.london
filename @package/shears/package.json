@@ -1,6 +1,7 @@
 {
   "name": "@package/shears",
   "version": "1.0.0",
+  "type": "module",
   "main": "lib/index.js",
   "license": "Private",
   "author": "Dan Beaven <dm.beaven@gmail.com>",
@@ -12,17 +13,17 @@
     "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"
   },
   "dependencies": {
-    "css-select": "^5.1.0",
-    "dom-serializer": "^2.0.0",
-    "domhandler": "^5.0.3",
-    "domutils": "^3.1.0",
-    "htmlparser2": "^9.0.0",
-    "typeofit": "^0.0.5"
+    "css-select": "^7.0.0",
+    "dom-serializer": "^3.1.1",
+    "domhandler": "^6.0.1",
+    "domutils": "^4.0.2",
+    "htmlparser2": "^12.0.0",
+    "typeofit": "^0.0.8"
   },
   "devDependencies": {
-    "@types/node": "^24.2.0",
-    "esbuild": "^0.25.8",
-    "typescript": "5.9.2",
-    "vitest": "^3.2.4"
+    "@types/node": "^26.0.0",
+    "esbuild": "^0.28.1",
+    "typescript": "6.0.3",
+    "vitest": "^4.1.9"
   }
 }

@@ -1,5 +1,5 @@
-import { crawler } from '../../context'
-import { Host } from '../../entities'
+import { crawler } from '../../context.js'
+import { Host } from '../../entities.js'
 
 const info: Omit<Host, 'lectures'> = {
   name: 'The British Academy',

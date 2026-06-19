@@ -1,8 +1,8 @@
 import { parseDocument } from 'htmlparser2'
 import { it, expect } from 'vitest'
 
-import { query } from './query'
-import { goto } from './goto'
+import { query } from './query.js'
+import { goto } from './goto.js'
 
 const html = (t: { raw: readonly string[] | ArrayLike<string> }, ...s: any[]) => ({
   data: parseDocument(String.raw(t, ...s)) as any,

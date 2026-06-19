@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { command, run, string, option } from 'cmd-ts'
-import { promises as fs } from 'fs'
-import { createHash } from 'crypto'
+import { promises as fs } from 'node:fs'
+import { createHash } from 'node:crypto'
 import { Listr } from 'listr2'
 import dayjs from 'dayjs'
 

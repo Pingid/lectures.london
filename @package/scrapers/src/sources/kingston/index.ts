@@ -1,8 +1,8 @@
 import * as s from '@package/shears'
 
-import { sanitizeHtml, sanitizeText } from '../../utility'
-import { crawler } from '../../context'
-import { Lecture } from '../../entities'
+import { sanitizeHtml, sanitizeText } from '../../utility/index.js'
+import { crawler } from '../../context.js'
+import { Lecture } from '../../entities.js'
 
 const info = {
   name: 'Kingston University',

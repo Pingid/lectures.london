@@ -1,5 +1,5 @@
 import { test } from 'vitest'
-import * as sources from './sources'
+import * as sources from './sources/index.js'
 
 let toTest = Object.entries(sources)
 if (toTest.some((x) => x[1].run.debug)) toTest = toTest.filter((x) => x[1].run.debug)

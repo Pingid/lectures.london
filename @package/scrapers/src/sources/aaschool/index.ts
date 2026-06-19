@@ -1,5 +1,7 @@
-import { sanitizeText } from '../../utility'
-import { crawler } from '../../context'
+import { request } from '@package/shears'
+
+import { sanitizeText } from '../../utility/index.js'
+import { crawler } from '../../context.js'
 
 const info = {
   name: 'Architectural Association School of Architecture',
@@ -8,10 +10,19 @@ const info = {
 }
 
 export const run = crawler(async () => {
-  const result = await fetch(
+  const result = await request(
     'https://www.aaschool.ac.uk/eventslisting.json?gettypefilter=quicklinkupcoming&gettopicfilter=1&getsearchfilter=&urlseries=0',
   )
-  const json = (await result.json()) as { data: any[] }
+
+  // The site sits behind anti-bot protection that frequently answers with an
+  // HTML error/challenge page (HTTP 429). Degrade to no lectures instead of
+  // throwing a JSON parse error that would spam the collector logs.
+  const json = (await result.json().catch(() => null)) as { data?: any[] } | null
+
+  if (!json?.data) {
+    console.warn(`aaschool: unexpected response (status ${result.status}); skipping`)
+    return { ...info, lectures: [] }
+  }
 
   return {
     ...info,

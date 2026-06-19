@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import fs from 'fs'
+import fs from 'node:fs'
 import z from 'zod'
 
 export const getTodaysLectures = async (file: string) => {

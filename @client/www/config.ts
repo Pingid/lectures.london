@@ -1,11 +1,13 @@
+const siteUrl = import.meta.env.SITE_URL || 'https://lectures.london'
+
 export const config = {
   title: 'Lectures London',
   description:
     'Public talks and lectures hosted by institutes and universities in London on topics including law, art sustainability, philosophy, history, economics and much more',
   author: 'Dan Beaven',
-  url: import.meta.env.SITE_URL,
-  origin: import.meta.env.SITE_URL,
-  logo: `${import.meta.env.SITE_URL}/icon.png`,
+  url: siteUrl,
+  origin: siteUrl,
+  logo: `${siteUrl}/icon.png`,
   twitter: '@lectures_london',
   keywords: ['lectures', 'london'],
 }

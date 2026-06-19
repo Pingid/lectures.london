@@ -1,6 +1,6 @@
-import { fetchDom, sanitizeHtml } from '../../utility'
-import { Lecture } from '../../entities'
-import { crawler } from '../../context'
+import { fetchDom, sanitizeHtml } from '../../utility/index.js'
+import { Lecture } from '../../entities.js'
+import { crawler } from '../../context.js'
 
 const info = {
   name: 'The Francis Crick Institute',

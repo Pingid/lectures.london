@@ -1,7 +1,7 @@
 import * as s from '@package/shears'
 
-import { parseStartEnd } from '../../utility'
-import { crawler } from '../../context'
+import { parseStartEnd } from '../../utility/index.js'
+import { crawler } from '../../context.js'
 
 export const run = crawler(async () => {
   const events_link = `https://www.imperial.ac.uk/whats-on/?audience=&type=lecture&quantity=200`

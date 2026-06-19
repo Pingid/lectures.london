@@ -1,4 +1,4 @@
-import { Shear, Parsed } from './types'
+import { Shear, Parsed } from './types.js'
 import { render } from 'dom-serializer'
 
 export const map: {

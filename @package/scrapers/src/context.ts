@@ -1,4 +1,4 @@
-import * as Entity from './entities'
+import * as Entity from './entities.js'
 
 export interface CrawlerContext {}
 
@@ -7,7 +7,7 @@ type DeepPartial<T> =
 
 export const crawler: {
   (fn: (ctx: CrawlerContext) => Promise<DeepPartial<Entity.Host>>): {
-    debug?: boolean
+    debug?: boolean;
     (ctx: CrawlerContext): Promise<Entity.Host>
   }
 } = (fn) => {

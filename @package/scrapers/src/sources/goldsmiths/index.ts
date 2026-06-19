@@ -1,8 +1,10 @@
 import * as s from '@package/shears'
-import unfluff from 'unfluffjs'
+import unfluffModule from 'unfluffjs'
 
-import { parseStartEnd } from '../../utility'
-import { crawler } from '../../context'
+const unfluff = unfluffModule as unknown as (html: string) => { text?: string }
+
+import { parseStartEnd } from '../../utility/index.js'
+import { crawler } from '../../context.js'
 
 const info = {
   name: 'Goldsmiths',

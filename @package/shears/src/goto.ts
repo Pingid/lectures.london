@@ -1,10 +1,11 @@
 import { parseDocument } from 'htmlparser2'
 import * as is from 'typeofit'
 
-import { Parsed, Shear, Context } from './types'
-import { Query, query } from './query'
+import { Parsed, Shear, Context } from './types.js'
+import { Query, query } from './query.js'
+import { request } from './request.js'
 
-declare module './types' {
+declare module './types.js' {
   export interface Context<A> {
     origin?: string
     driver?: (
@@ -38,7 +39,7 @@ export const goto: GoTo = (source, selector, options) => {
         ctx?.driver ||
         options?.driver ||
         ((url, ctx) =>
-          fetch(url)
+          request(url)
             .then((x) => x.text())
             .then((x) => ({ ...ctx, origin: new URL(url).origin, data: x })))
 

@@ -12,25 +12,25 @@
     "collect": "pnpm script-collect -l lectures.json --hosts hosts.json"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.4.2",
-    "@astrojs/solid-js": "^5.1.0",
-    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/solid-js": "^6.0.1",
     "@solidjs/meta": "^0.29.4",
-    "astro": "^5.12.8",
-    "dayjs": "^1.11.13",
-    "fuse.js": "^7.0.0",
-    "ical-generator": "^8.0.0",
-    "mcn": "^0.0.4",
-    "solid-js": "^1.9.1",
-    "tailwindcss": "^3.4.13",
-    "urlpattern-polyfill": "^10.0.0"
+    "astro": "^6.4.8",
+    "dayjs": "^1.11.21",
+    "fuse.js": "^7.4.2",
+    "ical-generator": "^11.0.0",
+    "mcn": "^0.0.5",
+    "solid-js": "^1.9.13",
+    "tailwindcss": "^4.3.1",
+    "urlpattern-polyfill": "^10.1.0"
   },
   "devDependencies": {
     "@package/scripts": "workspace:^",
-    "@tailwindcss/typography": "^0.5.16",
-    "env-cmd": "^10.1.0",
-    "esbuild": "^0.25.8",
-    "typescript": "5.9.2"
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.1",
+    "env-cmd": "^11.0.0",
+    "esbuild": "^0.28.1",
+    "typescript": "6.0.3"
   }
 }

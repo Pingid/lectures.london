@@ -1,8 +1,7 @@
 @import './font.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../../tailwind.config.cjs';
 
 @layer base {
   :root {

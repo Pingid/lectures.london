@@ -1,4 +1,4 @@
-import { CountArrayDepth, Last, Parsed, Shear, Typeof } from './types'
+import { CountArrayDepth, Last, Parsed, Shear, Typeof } from './types.js'
 import { selectOne, selectAll } from 'css-select'
 import * as du from 'domutils'
 import * as is from 'typeofit'

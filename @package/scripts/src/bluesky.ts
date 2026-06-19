@@ -4,7 +4,7 @@ import { command, run, string, positional } from 'cmd-ts'
 import { AtpAgent } from '@atproto/api'
 import dayjs from 'dayjs'
 
-import { siteLink, getTodaysLectures } from './util'
+import { siteLink, getTodaysLectures } from './util/index.js'
 
 process.env.TZ = 'Europe/London'
 

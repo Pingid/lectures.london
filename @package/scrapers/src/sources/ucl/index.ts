@@ -1,5 +1,5 @@
-import { crawler } from '../../context'
-import { Lecture } from '../../entities'
+import { crawler } from '../../context.js'
+import { Lecture } from '../../entities.js'
 
 const fetch_lectures = async (): Promise<Lecture[]> => {
   const pages = [0, 11, 21, 31, 41]

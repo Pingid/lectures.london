@@ -5,7 +5,7 @@ import { TwitterApi } from 'twitter-api-v2'
 import dayjs from 'dayjs'
 import z from 'zod'
 
-import { getTodaysLectures, siteLink } from './util'
+import { getTodaysLectures, siteLink } from './util/index.js'
 
 process.env.TZ = 'Europe/London'
 

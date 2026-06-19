@@ -1,6 +1,6 @@
-import { fetchDom, sanitizeHtml, sanitizeText } from '../../utility'
-import { Host, Lecture } from '../../entities'
-import { crawler } from '../../context'
+import { fetchDom, sanitizeHtml, sanitizeText } from '../../utility/index.js'
+import { Host, Lecture } from '../../entities.js'
+import { crawler } from '../../context.js'
 
 const info: Omit<Host, 'lectures'> = {
   name: 'Wellcome Collection',
@@ -23,8 +23,8 @@ export const run = crawler(async () => {
     }
 
     const eventResults = data.props.pageProps.events.results.filter((event: any) => {
-      const isRelevantFormat = event.format?.label &&
-        ['Discussion', 'Session', 'Performance'].includes(event.format.label)
+      const isRelevantFormat =
+        event.format?.label && ['Discussion', 'Session', 'Performance'].includes(event.format.label)
 
       const hasEducationalSeries = event.series && event.series.length > 0
 
@@ -45,11 +45,10 @@ export const run = crawler(async () => {
           const time_start = firstTime.startDateTime
           const time_end = firstTime.endDateTime
 
-          
           let image: { src: string } | undefined
           if (event.image?.url) {
             image = {
-              src: event.image['16:9']?.url || event.image.url
+              src: event.image['16:9']?.url || event.image.url,
             }
           }
 
@@ -63,7 +62,9 @@ export const run = crawler(async () => {
 
           try {
             const eventDom = await fetchDom(link)
-            const contentElement = eventDom.document.body.querySelector('#main article .body-text, #main .body-text, main .body-text')
+            const contentElement = eventDom.document.body.querySelector(
+              '#main article .body-text, #main .body-text, main .body-text',
+            )
 
             if (contentElement) {
               const rawHtml = contentElement.outerHTML
@@ -90,7 +91,7 @@ export const run = crawler(async () => {
           console.error(`Error processing event ${event.id || event.uid}:`, error)
           throw error
         }
-      })
+      }),
     )
 
     return { ...info, lectures }

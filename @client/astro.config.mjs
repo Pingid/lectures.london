@@ -1,15 +1,12 @@
 import { defineConfig } from 'astro/config'
-import tailwind from '@astrojs/tailwind'
 import solidJs from '@astrojs/solid-js'
 import sitemap from '@astrojs/sitemap'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   srcDir: './www',
-  site: process.env.SITE_URL,
+  site: process.env.SITE_URL || 'https://lectures.london',
   outDir: 'build/client',
-  integrations: [
-    tailwind({ config: { applyBaseStyles: false } }),
-    solidJs(),
-    sitemap({ lastmod: new Date(), changefreq: 'daily' }),
-  ],
+  integrations: [solidJs(), sitemap({ lastmod: new Date(), changefreq: 'daily' })],
+  vite: { plugins: [tailwindcss()] },
 })

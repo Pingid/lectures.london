@@ -1,17 +1,16 @@
-import querystring from 'querystring'
 import * as s from '@package/shears'
 import dayjs from 'dayjs'
 
-import { parseStartEnd } from '../../utility'
-import { crawler } from '../../context'
+import { parseStartEnd } from '../../utility/index.js'
+import { crawler } from '../../context.js'
 
 export const run = crawler(async () => {
-  const query = querystring.encode({
+  const query = new URLSearchParams({
     entryRequirements: 'false',
     timePeriod: `${dayjs().toISOString()}--${dayjs().add(1, 'year').toISOString()}`,
     typeOfEvent: '0/1/277/281/282',
     type: '9f357d51-c842-5eb3-8c2a-12d17fe42c07',
-  })
+  }).toString()
   const events_link = `https://www.lse.ac.uk/events/search-events?${query}`
 
   const cards = await s.goto(

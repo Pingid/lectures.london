@@ -2,7 +2,7 @@ import * as s from '@package/shears'
 // @ts-ignore
 import ICAL from 'ical.js'
 
-import { crawler } from '../../context'
+import { crawler } from '../../context.js'
 
 const info = {
   name: 'Cambridge University',

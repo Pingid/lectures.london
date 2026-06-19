@@ -1,8 +1,8 @@
 import * as s from '@package/shears'
 
-import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility'
-import { crawler } from '../../context'
-import { Lecture } from '../../entities'
+import { parseStartEnd, sanitizeHtml, sanitizeText } from '../../utility/index.js'
+import { crawler } from '../../context.js'
+import { Lecture } from '../../entities.js'
 
 const info = { name: 'School of Advanced Study', website: 'https://www.sas.ac.uk', twitter: '@SASNews' }
 

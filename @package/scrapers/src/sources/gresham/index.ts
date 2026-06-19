@@ -1,7 +1,7 @@
 import * as s from '@package/shears'
 
-import { formatDate, sanitizeHtml, sanitizeText } from '../../utility'
-import { crawler } from '../../context'
+import { formatDate, sanitizeHtml, sanitizeText } from '../../utility/index.js'
+import { crawler } from '../../context.js'
 
 const info = {
   name: 'Gresham College',

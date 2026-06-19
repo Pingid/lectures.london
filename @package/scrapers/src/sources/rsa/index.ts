@@ -1,5 +1,5 @@
-import { fetchDom, parseStartEnd, sanitizeHtml } from '../../utility'
-import { crawler } from '../../context'
+import { fetchDom, parseStartEnd, sanitizeHtml } from '../../utility/index.js'
+import { crawler } from '../../context.js'
 
 export const run = crawler(async () => {
   const events_link = `https://www.thersa.org/events/`

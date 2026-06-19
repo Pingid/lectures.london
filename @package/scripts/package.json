@@ -1,6 +1,7 @@
 {
   "name": "@package/scripts",
   "version": "1.0.0",
+  "type": "module",
   "main": "lib/index.js",
   "license": "Private",
   "author": "Dan Beaven <dm.beaven@gmail.com>",
@@ -17,19 +18,19 @@
     "clean": "rm tsconfig.tsbuildinfo || true && rm -R ./lib || true"
   },
   "dependencies": {
-    "@actions/core": "^1.10.1",
-    "@actions/github": "^6.0.0",
-    "@atproto/api": "^0.15.0",
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "@atproto/api": "^0.20.16",
     "@package/scrapers": "workspace:^",
-    "cmd-ts": "^0.13.0",
-    "dayjs": "^1.11.13",
-    "listr2": "^8.2.5",
-    "twitter-api-v2": "^1.15.2",
-    "zod": "^3.23.8"
+    "cmd-ts": "^0.15.0",
+    "dayjs": "^1.11.21",
+    "listr2": "^10.2.1",
+    "twitter-api-v2": "^1.29.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@types/node": "^24.2.0",
-    "esbuild": "^0.25.8",
-    "typescript": "5.9.2"
+    "@types/node": "^26.0.0",
+    "esbuild": "^0.28.1",
+    "typescript": "6.0.3"
   }
 }
